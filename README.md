@@ -1,2 +1,2 @@
 # LifeStream_BBMS
-LifeStream - Blood Bank Managemnt System
+LifeStream - Blood Bank Management System
