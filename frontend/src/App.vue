@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <PageLayout /> <!-- 加载布局 -->
-    <!-- <router-view /> 加载布局或页面 -->
+    <!-- <PageLayout /> 加载布局 -->
+    <router-view /> 
   </div>
 </template>
 
 <script>
 // import PageDesignVue from './components/PageDesign.vue'
-import PageLayout from './layouts/PageLayout.vue'
+// import PageLayout from './layouts/PageLayout.vue'
 
 export default {
   name: 'App',
   components: {
-    PageLayout
+    // PageLayout
   }
 }
 </script>

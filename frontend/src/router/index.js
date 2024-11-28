@@ -1,13 +1,13 @@
+import { Avatar, Bell, Calendar, Grid, HomeFilled, List, Management, Tools } from '@element-plus/icons-vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { HomeFilled, Calendar, Avatar, Grid, Bell, Tools, List, Management } from '@element-plus/icons-vue';
 
-import PageLayout from '@/layouts/PageLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+import PageLayout from '@/layouts/PageLayout.vue';
 
 const routes = [
     {
         path: '/',
-        redirect: '/home',
+        redirect: '/login',
     },
     {
         path: '/home',
