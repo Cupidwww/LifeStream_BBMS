@@ -42,15 +42,15 @@ public class UserController {
      * @param request HttpServletRequest
      * @return R 响应对象,包含token等信息
      */
-    @IgnoreAuth
-    @RequestMapping(value = "/login")
-    public R login(String username, String password, String captcha, HttpServletRequest request) {
-        UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username));
-        if(user==null || !user.getPassword().equals(password)) {
+    @IgnoreAuth  // 忽略认证
+    @RequestMapping(value = "/login")  
+    public R login(String username, String password, String captcha, HttpServletRequest request) {  
+        UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username));  
+        if(user==null || !user.getPassword().equals(password)) {  
             return R.error("账号或密码不正确");
         }
-        String token = userService.generateToken(user.getId(), username, user.getRole());
-        return R.ok().put("token", token);
+        String token = userService.generateToken(user.getId(), username, user.getRole());  
+        return R.ok().put("token", token);  
     }
     
     /**
