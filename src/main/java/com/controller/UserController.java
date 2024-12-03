@@ -36,21 +36,34 @@ public class UserController {
     
     /**
      * 登录接口
-     * @param username 用户名
-     * @param password 密码
-     * @param captcha 验证码
-     * @param request HttpServletRequest
-     * @return R 响应对象,包含token等信息
      */
-    @IgnoreAuth  // 忽略认证
-    @RequestMapping(value = "/login")  
-    public R login(String username, String password, String captcha, HttpServletRequest request) {  
-        UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username));  
-        if(user==null || !user.getPassword().equals(password)) {  
-            return R.error("账号或密码不正确");
+    @IgnoreAuth
+    @RequestMapping(value = "/login")
+    public R login(String username, String password, String role, HttpServletRequest request) {
+        if("管理员".equals(role)) {
+            UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username).eq("role", "管理员"));
+            if(user==null || !user.getPassword().equals(password)) {
+                return R.error("账号或密码不正确");
+            }
+            String token = tokenService.generateToken(user.getId(), username, "users", "管理员");
+            return R.ok().put("token", token);
+        } else if("工作人员".equals(role)) {
+            UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username).eq("role", "工作人员"));
+            if(user==null || !user.getPassword().equals(password)) {
+                return R.error("账号或密码不正确");
+            }
+            String token = tokenService.generateToken(user.getId(), username, "users", "工作人员");
+            return R.ok().put("token", token);
+        } else if("献血人员".equals(role)) {
+            UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username).eq("role", "献血人员"));
+            if(user==null || !user.getPassword().equals(password)) {
+                return R.error("账号或密码不正确");
+            }
+            String token = tokenService.generateToken(user.getId(), username, "users", "献血人员");
+            return R.ok().put("token", token);
+        } else {
+            return R.error("请选择登录角色");
         }
-        String token = userService.generateToken(user.getId(), username, user.getRole());  
-        return R.ok().put("token", token);  
     }
     
     /**
@@ -119,9 +132,18 @@ public class UserController {
      */
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,UserEntity user, HttpServletRequest request){
-        EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
-        PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, user), params), params));
-        return R.ok().put("data", page);
+        String role = (String)request.getSession().getAttribute("role");
+        if("管理员".equals(role)) {
+            EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
+            PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, user), params), params));
+            return R.ok().put("data", page);
+        } else {
+            user.setUsername((String)request.getSession().getAttribute("username"));
+            EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
+            ew.eq("username", user.getUsername());
+            PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, user), params), params));
+            return R.ok().put("data", page);
+        }
     }
     
     /**
@@ -170,7 +192,14 @@ public class UserController {
      * @return R 响应对象,包含用户详情
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id){
+    public R info(@PathVariable("id") Long id, HttpServletRequest request){
+        String role = (String)request.getSession().getAttribute("role");
+        if(!"管理员".equals(role)) {
+            Long userId = (Long)request.getSession().getAttribute("userId");
+            if(!userId.equals(id)) {
+                return R.error(403, "无权限访问");
+            }
+        }
         UserEntity user = userService.selectById(id);
         return R.ok().put("data", user);
     }
@@ -228,7 +257,17 @@ public class UserController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody UserEntity user, HttpServletRequest request){
-        userService.updateById(user);
+        String role = (String)request.getSession().getAttribute("role");
+        if("管理员".equals(role)) {
+            userService.updateById(user);
+        } else {
+            Long userId = (Long)request.getSession().getAttribute("userId");
+            if(userId.equals(user.getId())) {
+                userService.updateById(user);
+            } else {
+                return R.error(403, "无权限访问");
+            }
+        }
         return R.ok();
     }
 
@@ -238,7 +277,11 @@ public class UserController {
      * @return R 响应对象
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids){
+    public R delete(@RequestBody Long[] ids, HttpServletRequest request){
+        String role = (String)request.getSession().getAttribute("role");
+        if(!"管理员".equals(role)) {
+            return R.error(403, "无权限访问");
+        }
         userService.deleteBatchIds(Arrays.asList(ids));
         return R.ok();
     }
