@@ -64,6 +64,15 @@ export default {
             return this.data;
         },
     },
+    watch: {
+        columns(newVal) {
+            console.log('Columns updated:', newVal);
+        },
+        data(newVal) {
+            console.log('Data updated:', newVal);
+        },
+    },
+    // 父组件无法访问
     methods: {
         handlePageChange(page) {
             this.$emit("page-change", page); // 向父组件传递页码变更事件
@@ -74,6 +83,10 @@ export default {
         },
         
     },
+    mounted() {
+        console.log('Columns from parent:', this.columns);
+        console.log('Data from parent:', this.data);
+    }
 };
 </script>
 

@@ -69,9 +69,9 @@
     </div>
   </div>
 </div>
-  </template>
+</template>
 
-  <style scoped>
+<style scoped>
   .main {
     display: flex;
     flex-direction: column; /* 垂直排列内容 */
@@ -155,5 +155,5 @@
   display: flex;               /* 确保label内部的内容是水平排列 */
   align-items: center;         /* 垂直居中 */
 }
-  </style>
+</style>
   
