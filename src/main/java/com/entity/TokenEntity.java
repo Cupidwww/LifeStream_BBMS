@@ -1,7 +1,6 @@
 package com.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -41,16 +40,6 @@ public class TokenEntity implements Serializable {
 	 * token
 	 */
 	private String token;
-	
-	/**
-	 * 过期时间
-	 */
-	private Date expiratedtime;
-	
-	/**
-	 * 新增时间
-	 */
-	private Date addtime;
 
 	public Long getId() {
 		return id;
@@ -92,22 +81,6 @@ public class TokenEntity implements Serializable {
 		this.token = token;
 	}
 
-	public Date getExpiratedtime() {
-		return expiratedtime;
-	}
-
-	public void setExpiratedtime(Date expiratedtime) {
-		this.expiratedtime = expiratedtime;
-	}
-
-	public Date getAddtime() {
-		return addtime;
-	}
-
-	public void setAddtime(Date addtime) {
-		this.addtime = addtime;
-	}
-
 	public String getUsername() {
 		return username;
 	}
@@ -116,14 +89,13 @@ public class TokenEntity implements Serializable {
 		this.username = username;
 	}
 
-	public TokenEntity(Long userid, String username, String tablename,String role, String token, Date expiratedtime) {
+	public TokenEntity(Long userid, String username, String tablename, String role, String token) {
 		super();
 		this.userid = userid;
 		this.username = username;
 		this.tablename = tablename;
 		this.role = role;
 		this.token = token;
-		this.expiratedtime = expiratedtime;
 	}
 	
 	public TokenEntity() {
