@@ -18,4 +18,6 @@ public interface TokenDao extends BaseMapper<TokenEntity> {
 
 	List<TokenEntity> selectListView(Pagination page,@Param("ew") Wrapper<TokenEntity> wrapper);
 	
+	TokenEntity selectOne(@Param("ew") Wrapper<TokenEntity> wrapper);
+	
 }

@@ -73,4 +73,11 @@ public interface UserService extends IService<UserEntity> {
 	 * @return UserEntity 用户实体
 	 */
 	UserEntity getByToken(String token);
+
+	/**
+	 * 根据用户名查询管理员用户信息
+	 * @param username 用户名
+	 * @return UserEntity 用户实体
+	 */
+	UserEntity getByUsername(String username);
 }

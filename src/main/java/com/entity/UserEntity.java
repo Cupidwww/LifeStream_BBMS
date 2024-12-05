@@ -32,9 +32,28 @@ public class UserEntity implements Serializable {
     private String password;
 
     /**
-     * 用户角色（管理员、工作人员、献血人员）
+     * 用户角色枚举
      */
-    private String role;
+    public enum Role {
+        ADMIN("管理员"), 
+        EMPLOYEE("工作人员"),
+        DONOR("献血人员");
+
+        private String roleName;
+
+        Role(String roleName) {
+            this.roleName = roleName;
+        }
+
+        public String getRoleName() {
+            return roleName;
+        }
+    }
+
+    /**
+     * 用户角色
+     */
+    private Role role;
 
     /**
      * 员工工号（适用于工作人员）
@@ -87,8 +106,8 @@ public class UserEntity implements Serializable {
     /**
      * 添加时间
      */
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat
+    @TableField("addtime")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addtime;
 
     /**
@@ -143,7 +162,7 @@ public class UserEntity implements Serializable {
      * 获取用户角色
      * @return 用户角色
      */
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -151,7 +170,7 @@ public class UserEntity implements Serializable {
      * 设置用户角色
      * @param role 用户角色
      */
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

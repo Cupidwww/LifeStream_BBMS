@@ -39,31 +39,40 @@ public class UserController {
      */
     @IgnoreAuth
     @RequestMapping(value = "/login")
-    public R login(String username, String password, String role, HttpServletRequest request) {
-        if("管理员".equals(role)) {
-            UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username).eq("role", "管理员"));
-            if(user==null || !user.getPassword().equals(password)) {
-                return R.error("账号或密码不正确");
-            }
-            String token = tokenService.generateToken(user.getId(), username, "users", "管理员");
-            return R.ok().put("token", token);
-        } else if("工作人员".equals(role)) {
-            UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username).eq("role", "工作人员"));
-            if(user==null || !user.getPassword().equals(password)) {
-                return R.error("账号或密码不正确");
-            }
-            String token = tokenService.generateToken(user.getId(), username, "users", "工作人员");
-            return R.ok().put("token", token);
-        } else if("献血人员".equals(role)) {
-            UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username).eq("role", "献血人员"));
-            if(user==null || !user.getPassword().equals(password)) {
-                return R.error("账号或密码不正确");
-            }
-            String token = tokenService.generateToken(user.getId(), username, "users", "献血人员");
-            return R.ok().put("token", token);
-        } else {
-            return R.error("请选择登录角色");
+    public R login(String username, String password, String roleType, HttpServletRequest request) {
+        System.out.println("收到的username: " + username);
+        System.out.println("收到的password: " + password);
+        System.out.println("收到的roleType: " + roleType);
+        
+        UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username));
+
+        System.out.println("查询到的user对象: " + user);
+        
+        if(user == null) {
+            System.out.println("账号不存在,返回错误");
+            return R.error("账号不存在");
         }
+        
+        System.out.println("user.getPassword()的值: " + user.getPassword());
+        if(!user.getPassword().equals(password)) {
+            System.out.println("密码不正确,返回错误");
+            return R.error("密码不正确");
+        }
+        
+        UserEntity.Role role = null;
+        if("admin".equals(roleType) && user.getRole() == UserEntity.Role.ADMIN) {
+            role = UserEntity.Role.ADMIN;
+        } else if("employee".equals(roleType) && user.getRole() == UserEntity.Role.EMPLOYEE) {
+            role = UserEntity.Role.EMPLOYEE;
+        } else if("donor".equals(roleType) && user.getRole() == UserEntity.Role.DONOR) {
+            role = UserEntity.Role.DONOR;
+        } else {
+            return R.error("无权限登录");
+        }
+        
+        String token = tokenService.generateToken(user.getId(), username, "users", role.getRoleName());
+        System.out.println("生成的token: " + token);
+        return R.ok().put("token", token);
     }
     
     /**
@@ -77,7 +86,8 @@ public class UserController {
         if(userService.selectOne(new EntityWrapper<UserEntity>().eq("username", user.getUsername())) !=null) {
             return R.error("用户已存在");
         }
-        user.setRole("普通用户");
+        
+        user.setRole(UserEntity.Role.DONOR); // 使用完整的枚举类型名
         userService.insert(user);
         return R.ok();
     }

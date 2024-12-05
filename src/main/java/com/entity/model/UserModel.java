@@ -47,20 +47,6 @@ public class UserModel extends UserEntity implements Serializable {
     }
 
     /**
-     * 获取：用户角色
-     */
-    public String getRole() {
-        return super.getRole();
-    }
-
-    /**
-     * 设置：用户角色
-     */
-    public void setRole(String role) {
-        super.setRole(role);
-    }
-
-    /**
      * 获取：员工工号
      */
     public String getEmployeeNumber() {

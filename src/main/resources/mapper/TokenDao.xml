@@ -6,8 +6,16 @@
     <select id="selectListView"
 		resultType="com.entity.TokenEntity" >
 
-		SELECT  t.* FROM token  t 	        
+		SELECT t.*, t.addtime FROM token t
         <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectOne"
+		resultType="com.entity.TokenEntity" >
+
+		SELECT t.* FROM token t
+		<where> ${ew.sqlSegment} </where>
+		LIMIT 1
 	</select>
 	
 </mapper>

@@ -120,4 +120,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		}
 		return null;
 	}
+
+	/**
+	 * 根据用户名查询管理员用户信息
+	 * @param username 用户名
+	 * @return UserEntity 用户实体
+	 */
+	@Override
+	public UserEntity getByUsername(String username) {
+		return this.selectOne(new EntityWrapper<UserEntity>().eq("username", username));
+	}
 }

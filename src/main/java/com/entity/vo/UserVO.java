@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.entity.UserEntity.Role;
 
 /**
  * 用户视图对象
@@ -25,7 +26,7 @@ public class UserVO implements Serializable {
 	/**
 	 * 用户角色
 	 */
-	private String role;
+	private Role role;
 	
 	/**
 	 * 员工工号
@@ -73,13 +74,6 @@ public class UserVO implements Serializable {
 	private String avatar;
 
 	/**
-	 * 添加时间
-	 */
-	@JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat 
-	private Date addtime;
-
-	/**
 	 * 获取主键id
 	 * @return id
 	 */
@@ -115,7 +109,7 @@ public class UserVO implements Serializable {
 	 * 获取用户角色
 	 * @return 用户角色
 	 */
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
@@ -123,7 +117,7 @@ public class UserVO implements Serializable {
 	 * 设置用户角色
 	 * @param role 用户角色
 	 */
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
@@ -269,21 +263,5 @@ public class UserVO implements Serializable {
 	 */
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
-	}
-
-	/**
-	 * 获取添加时间
-	 * @return 添加时间
-	 */
-	public Date getAddtime() {
-		return addtime;
-	}
-
-	/**
-	 * 设置添加时间
-	 * @param addtime 添加时间
-	 */
-	public void setAddtime(Date addtime) {
-		this.addtime = addtime;
 	}
 } 
