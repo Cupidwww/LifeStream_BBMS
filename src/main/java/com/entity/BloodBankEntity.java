@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -18,7 +20,7 @@ public class BloodBankEntity implements Serializable {
     /**
      * 主键id
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -42,7 +44,7 @@ public class BloodBankEntity implements Serializable {
     /**
      * 入库日期
      */
-    @TableField("transaction_date")
+    @TableField("transactionDate")
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat
     private Date transactionDate;
@@ -50,7 +52,7 @@ public class BloodBankEntity implements Serializable {
     /**
      * 过期日期
      */
-    @TableField("expiration_date")
+    @TableField("expirationDate")
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat
     private Date expirationDate;

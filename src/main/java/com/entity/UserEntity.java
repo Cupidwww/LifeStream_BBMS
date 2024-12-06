@@ -35,9 +35,9 @@ public class UserEntity implements Serializable {
      * 用户角色枚举
      */
     public enum Role {
-        ADMIN("管理员"), 
-        EMPLOYEE("工作人员"),
-        DONOR("献血人员");
+        ADMIN("ADMIN"),
+        EMPLOYEE("EMPLOYEE"),
+        DONOR("DONOR");
 
         private String roleName;
 

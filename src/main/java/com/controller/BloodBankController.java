@@ -55,7 +55,7 @@ public class BloodBankController {
     @RequestMapping("/lists")
     public R list( BloodBankEntity bloodBank){
         EntityWrapper<BloodBankEntity> ew = new EntityWrapper<BloodBankEntity>();
-        ew.allEq(MPUtil.allEQMapPre( bloodBank, "bloodbank")); 
+        ew.allEq(MPUtil.allEQMapPre( bloodBank, "blood_bank_management"));
         return R.ok().put("data", bloodBankService.selectListView(ew));
     }
 
@@ -65,7 +65,7 @@ public class BloodBankController {
     @RequestMapping("/query")
     public R query(BloodBankEntity bloodBank){
         EntityWrapper< BloodBankEntity> ew = new EntityWrapper< BloodBankEntity>();
-        ew.allEq(MPUtil.allEQMapPre( bloodBank, "bloodbank")); 
+        ew.allEq(MPUtil.allEQMapPre( bloodBank, "blood_bank_management"));
         BloodBankView bloodBankView =  bloodBankService.selectView(ew);
         return R.ok("查询血库管理成功").put("data", bloodBankView);
     }
