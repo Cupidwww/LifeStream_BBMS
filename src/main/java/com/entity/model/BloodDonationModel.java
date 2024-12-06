@@ -1,7 +1,5 @@
 package com.entity.model;
 
-import com.entity.CaixuedengjiEntity;
-
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
