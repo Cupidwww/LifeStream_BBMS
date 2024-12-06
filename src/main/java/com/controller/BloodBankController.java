@@ -45,7 +45,7 @@ public class BloodBankController {
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,BloodBankEntity bloodBank, HttpServletRequest request){
         EntityWrapper<BloodBankEntity> ew = new EntityWrapper<BloodBankEntity>();
-        PageUtils page = bloodBankService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, bloodBank), params), params));
+        PageUtils page = bloodBankService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.allEq(ew, bloodBank), params), params));
         return R.ok().put("data", page);
     }
 

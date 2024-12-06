@@ -35,7 +35,7 @@ public interface UserDao extends BaseMapper<UserEntity> {
 	 * @param wrapper 实体包装类,用于添加查询条件
 	 * @return List<UserView> 用户视图列表
 	 */
-	@Select("SELECT id, username, password, role, employee_number, name, gender, age, phone, email, id_card, home_address, avatar, addtime FROM user ${ew.customSqlSegment}")
+//	@Select("SELECT id, username, password, role, employee_number, name, gender, age, phone, email, id_card, home_address, avatar, addtime FROM user ${ew.customSqlSegment}")
 	List<UserView> selectListView(@Param("ew") Wrapper<UserEntity> wrapper);
 
 	/**
@@ -51,6 +51,6 @@ public interface UserDao extends BaseMapper<UserEntity> {
 	 * @param wrapper 实体包装类,用于添加查询条件
 	 * @return UserView 用户视图
 	 */
-	@Select("SELECT id, username, password, role, employee_number, name, gender, age, phone, email, id_card, home_address, avatar, addtime FROM user ${ew.customSqlSegment} LIMIT 1")
+//	@Select("SELECT id, username, password, role, employee_number, name, gender, age, phone, email, id_card, home_address, avatar, addtime FROM user ${ew.customSqlSegment} LIMIT 1")
 	UserView selectView(@Param("ew") Wrapper<UserEntity> wrapper);
 } 

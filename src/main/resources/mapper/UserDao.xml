@@ -23,16 +23,12 @@
 
 	<!-- 查询用户列表,返回 UserVO 对象 -->
 	<select id="selectListVO" resultType="com.entity.vo.UserVO">
-		SELECT id, username, password, role, employee_number, name, gender, age, phone, email, id_card, home_address, avatar, addtime
-		FROM user
-		WHERE 1=1 ${ew.sqlSegment}
+		SELECT * FROM user WHERE 1=1 ${ew.sqlSegment}
 	</select>
 	
 	<!-- 查询单个用户,返回 UserVO 对象 -->
 	<select id="selectVO" resultType="com.entity.vo.UserVO">
-		SELECT id, username, password, role, employee_number, name, gender, age, phone, email, id_card, home_address, avatar, addtime
-		FROM user 
-		WHERE 1=1 ${ew.sqlSegment} LIMIT 1
+		SELECT * FROM user WHERE 1=1 ${ew.sqlSegment}
 	</select>
 	
 	<!-- 查询用户列表,返回 UserView 对象 -->
@@ -42,7 +38,7 @@
 	
 	<!-- 查询单个用户,返回 UserView 对象 -->
 	<select id="selectView" resultType="com.entity.view.UserView">
-		SELECT * FROM user WHERE 1=1 ${ew.sqlSegment} LIMIT 1
+		SELECT * FROM user WHERE 1=1 ${ew.sqlSegment}
 	</select>
 
 </mapper> 

@@ -24,19 +24,19 @@ public class BloodBankEntity implements Serializable {
     /**
      * 血型
      */
-    @TableField("blood_type")
+    @TableField("bloodType")
     private String bloodType;
 
     /**
      * 血液种类
      */
-    @TableField("blood_category")
+    @TableField("bloodCategory")
     private String bloodCategory;
 
     /**
      * 血量
      */
-    @TableField("blood_volume")
+    @TableField("bloodVolume")
     private Float bloodVolume;
 
     /**
@@ -58,7 +58,7 @@ public class BloodBankEntity implements Serializable {
     /**
      * 血液来源（外键）
      */
-    @TableField("blood_source")
+    @TableField("bloodSource")
     private String bloodSource;
 
     /**

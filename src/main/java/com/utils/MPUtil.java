@@ -58,7 +58,7 @@ public class MPUtil {
 		}
 		
 		public static Wrapper likeOrEq(Wrapper wrapper,Object bean) {
-			  Map result = BeanUtil.beanToMap(bean, true, true);			 
+			  Map result = BeanUtil.beanToMap(bean, false, true);
 			return genLikeOrEq(wrapper,result);
 		}
 		
@@ -80,7 +80,7 @@ public class MPUtil {
 		}
 		
 		public static Wrapper allEq(Wrapper wrapper,Object bean) {
-			  Map result = BeanUtil.beanToMap(bean, true, true);			 
+			  Map result = BeanUtil.beanToMap(bean, false, true);
 			return genEq(wrapper,result);
 		}
 	
