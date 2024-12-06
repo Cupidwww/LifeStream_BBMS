@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.BloodBankDao">
+
+    <!-- 定义BloodBankEntity的结果映射 -->
+    <resultMap type="com.entity.BloodBankEntity" id="bloodBankMap">
+        <result property="id" column="id"/>
+        <result property="bloodType" column="blood_type"/>
+        <result property="bloodCategory" column="blood_category"/>
+        <result property="bloodVolume" column="blood_volume"/>
+        <result property="transactionDate" column="transaction_date"/>
+        <result property="expirationDate" column="expiration_date"/>
+        <result property="bloodSource" column="blood_source"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- 查询血库VO列表 -->
+    <select id="selectListVO" resultType="com.entity.vo.BloodBankVO">
+        SELECT * FROM blood_bank_management WHERE 1=1 ${ew.sqlSegment}
+    </select>
+    
+    <!-- 查询单个血库VO -->
+    <select id="selectVO" resultType="com.entity.vo.BloodBankVO">
+        SELECT * FROM blood_bank_management WHERE 1=1 ${ew.sqlSegment} LIMIT 1
+    </select>
+    
+    <!-- 查询血库视图列表 -->
+    <select id="selectListView" resultType="com.entity.view.BloodBankView">
+        SELECT * FROM blood_bank_management WHERE 1=1 ${ew.sqlSegment}
+    </select>
+    
+    <!-- 查询单个血库视图 -->
+    <select id="selectView" resultType="com.entity.view.BloodBankView">
+        SELECT * FROM blood_bank_management WHERE 1=1 ${ew.sqlSegment} LIMIT 1
+    </select>
+
+</mapper> 
