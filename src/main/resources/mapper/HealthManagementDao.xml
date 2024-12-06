@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.HealthManagementDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.HealthManagementEntity" id="healthManagementMap">
+        <result property="id" column="id"/>
+        <result property="donorID" column="donorID"/>
+        <result property="staffID" column="staffID"/>
+        <result property="gender" column="gender"/>
+        <result property="weight" column="weight"/>
+        <result property="height" column="height"/>
+        <result property="physicalExamTime" column="physicalExamTime"/>
+        <result property="physicalExamResult" column="physicalExamResult"/>
+        <result property="testTubeNumber" column="testTubeNumber"/>
+        <result property="bloodType" column="bloodType"/>
+        <result property="hepatitisB" column="hepatitisB"/>
+        <result property="hiv" column="hiv"/>
+        <result property="syphilis" column="syphilis"/>
+        <result property="testResult" column="testResult"/>
+        <result property="testTime" column="testTime"/>
+    </resultMap>
+
+    <select id="selectListVO"
+            resultType="com.entity.vo.HealthManagementVO" >
+        SELECT * FROM health_management where 1=1 ${ew.sqlSegment}
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.HealthManagementVO" >
+        SELECT * FROM health_management where 1=1 ${ew.sqlSegment}
+    </select>
+
+    <select id="selectListView"
+            resultType="com.entity.view.HealthManagementView" >
+        SELECT * FROM health_management where 1=1 ${ew.sqlSegment}
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.HealthManagementView" >
+        SELECT * FROM health_management where 1=1 ${ew.sqlSegment}
+    </select>
+
+
+</mapper>

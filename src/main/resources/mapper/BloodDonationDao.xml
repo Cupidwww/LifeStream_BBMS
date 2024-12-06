@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.BloodDonationDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.BloodDonationEntity" id="bloodDonationMap">
+        <result property="id" column="id"/>
+        <result property="donorID" column="donorID"/>
+        <result property="bloodType" column="bloodType"/>
+        <result property="bloodCategory" column="bloodCategory"/>
+        <result property="bloodBagNumber" column="bloodBagNumber"/>
+        <result property="bloodVolume" column="bloodVolume"/>
+        <result property="isQualified" column="isQualified"/>
+        <result property="registrationDate" column="registrationDate"/>
+        <result property="staffID" column="staffID"/>
+    </resultMap>
+
+    <select id="selectListVO"
+            resultType="com.entity.vo.BloodDonationVO" >
+        SELECT * FROM blood_donation where 1=1 ${ew.sqlSegment}
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.BloodDonationVO" >
+        SELECT * FROM blood_donation where 1=1 ${ew.sqlSegment}
+    </select>
+
+    <select id="selectListView"
+            resultType="com.entity.view.BloodDonationView" >
+
+        SELECT * FROM blood_donation where 1=1 ${ew.sqlSegment}
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.BloodDonationView" >
+        SELECT * FROM blood_donation where 1=1 ${ew.sqlSegment}
+    </select>
+
+
+</mapper>

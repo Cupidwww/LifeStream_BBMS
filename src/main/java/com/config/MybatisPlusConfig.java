@@ -12,7 +12,6 @@ import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
  */
 @Configuration
 public class MybatisPlusConfig {
-
     /**
      * 分页插件
      */
