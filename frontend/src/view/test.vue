@@ -1,54 +1,53 @@
-<template>
-    <div>
-        <h1>Blood Record Management</h1>
-        <p>This is the blood record management page.</p>
-        <dynamic-table :columns="columns" :fetch-data="fetchBloodRecords" />
-    </div>
-</template>
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+    port: 8080
+    servlet:
+        context-path: /springbootypiqw
 
-<script>
-import DynamicTable from "@/components/DynamicTable.vue";
-import axios from "axios";
 
-export default {
-    components: { DynamicTable },
-    data() {
-        return {
-            columns: [],
-            data: [],
-            total: 0,
-        };
-    },
-    methods: {
-        async fetchBloodRecords(page, size) {
-            console.log("请求发送中...", { page, size });  // 打印请求参数
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springbootypiqw?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
 
-            try {
-                const response = await axios.get("https://jsonplaceholder.typicode.com/users", {
-                    params: { page, size },
-                });
+#        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#        url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=springbootypiqw
+#        username: admin
+#        password: admin
 
-                console.log("请求成功，响应数据：", response.data);  // 打印返回的数据
+    servlet:
+      multipart:
+        max-file-size: 300MB
+        max-request-size: 300MB
+    resources:
+      static-locations: classpath:static/,file:static/
 
-                return {
-                    columns: response.data.columns,  // 动态表头
-                    data: response.data.data,        // 表格数据
-                    total: response.data.total,      // 总记录数
-                };
-            } catch (error) {
-                console.error("请求失败，错误信息：", error);  // 打印错误信息
-                return {
-                    columns: [],
-                    data: [],
-                    total: 0,
-                };
-            }
-        },
-    },
-    mounted() {
-        // 调用 fetchBloodRecords 方法，触发请求
-        console.log("组件已加载，开始发送请求...");
-        this.fetchBloodRecords(1, 10);  // 假设每页 10 条数据，当前页为 1
-    },
-};
-</script>
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.entity
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 1
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #逻辑删除配置
+    logic-delete-value: -1
+    logic-not-delete-value: 0
+    #自定义SQL注入器
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    #springboot 项目mybatis plus 设置 jdbcTypeForNull (oracle数据库需配置JdbcType.NULL, 默认是Other)
+    jdbc-type-for-null: 'null'

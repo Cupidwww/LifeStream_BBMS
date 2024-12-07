@@ -31,6 +31,7 @@ public class BloodBankController {
     /**
      * 后端列表
      */
+    @IgnoreAuth
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,BloodBankEntity bloodBank, HttpServletRequest request){
         EntityWrapper<BloodBankEntity> ew = new EntityWrapper<BloodBankEntity>();

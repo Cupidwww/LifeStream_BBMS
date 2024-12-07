@@ -41,6 +41,42 @@ app.get('/mock/api/blood-records', (req, res) => {
     });
 });
 
+app.post('/mock/api/blood-records', express.json(), (req, res) => {
+    const newRecord = req.body; // 从请求体中获取新记录数据
+    console.log('Mock API /blood-records POST called with:', newRecord);
+
+    // 模拟保存数据
+    res.json({
+        message: 'New blood record added successfully!',
+        record: newRecord, // 返回新增的记录
+    });
+});
+
+app.put('/mock/api/blood-records/:id', express.json(), (req, res) => {
+    const { id } = req.params; // 从 URL 中获取要更新的记录 ID
+    const updatedRecord = req.body; // 从请求体中获取更新后的数据
+
+    console.log(`Mock API /blood-records/${id} PUT called with:`, updatedRecord);
+
+    // 模拟更新
+    res.json({
+        message: `Blood record with ID ${id} updated successfully!`,
+        updatedRecord,
+    });
+});
+
+app.delete('/mock/api/blood-records/:id', (req, res) => {
+    const { id } = req.params; // 从 URL 中获取要删除的记录 ID
+    console.log(`Mock API /blood-records/${id} DELETE called`);
+
+    // 模拟删除
+    res.json({
+        message: `Blood record with ID ${id} deleted successfully!`,
+    });
+});
+
+
+
 // 启动 Express 服务
 app.listen(port, () => {
     console.log(`Mock server running at http://localhost:${port}`);
