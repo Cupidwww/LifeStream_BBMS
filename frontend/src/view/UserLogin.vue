@@ -1,13 +1,14 @@
 <template>
     <div class="main">
-      <div class="text-center mb-6">
-        <img 
-          src="PNG" 
-          alt="LOGO" 
-          class="mx-auto w-16 h-16"
-        />
-        <h1 class="text-2xl font-semibold text-gray-700 mt-2">Blood bank management system</h1>
-      </div>
+      <div class="flex flex-col items-center gap-2"> <!-- 设置 gap 为 2 -->
+  <img
+    src="..\assets\爱如火icon-removebg-preview.png"
+    alt="LOGO"
+    class="w-16 h-16"
+     style="max-width: 100px; max-height: 100px; margin-bottom: 8px;"
+  />
+  <h1 class="text-3xl font-bold text-gray-900" style="margin-top: 0">Blood bank management system</h1>
+</div>
   
   <!-- 白色背景框 -->
   <div class=box>
@@ -19,6 +20,7 @@
         type="text"
         placeholder="Please enter username"
         class="input1"
+         v-model="username"
       />
     </div>
 
@@ -30,6 +32,7 @@
         type="password"
         placeholder="Please enter password"
         class="input1"
+         v-model="password"
       />
     </div>
 
@@ -49,6 +52,7 @@
     <button
       type="submit"
       class="login-btn"
+      @click="handleLogin"
     >
       login
     </button>
@@ -70,6 +74,58 @@
   </div>
 </div>
 </template>
+
+<script>
+import { getUserInfo, loginUser } from '@/api/userapi'; // 导入 API 方法
+
+export default {
+  data() {
+    return {
+      username: '',     // 存储用户名
+      password: '',     // 存储密码
+      rememberMe: false, // 存储 "记住我" 复选框状态
+    };
+  },
+  methods: {
+    // 登录方法
+    async handleLogin() {
+      // 获取用户名和密码
+      const loginData = {
+        username: this.username,
+        password: this.password,
+        rememberMe: this.rememberMe, // "记住我"的状态
+      };
+
+      // 检查用户名和密码是否为空
+      if (!this.username || !this.password) {
+        this.$message.error('请填写用户名和密码');
+        return;
+      }
+
+      try {
+        // 调用登录接口
+        const response = await loginUser(loginData);
+
+        // 登录成功后，获取用户信息（可选）
+        const userInfoResponse = await getUserInfo();
+        console.log('用户信息:', userInfoResponse.data);
+
+        // 假设后端返回的 response.data.message 为成功消息
+        this.$message.success(response.data.message || 'successful！');
+
+        // 登录成功后跳转到主页面
+        this.$router.push('/home');  // 假设登录成功后跳转到 `/dashboard` 页面
+      } catch (error) {
+        // 错误处理
+        const errorMessage = error.response?.data?.msg || 'Registration failed, please try again later';
+        this.$message.error(errorMessage);
+      }
+    },
+  },
+};
+</script>
+
+
 
 <style scoped>
   .main {

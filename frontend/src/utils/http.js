@@ -5,7 +5,7 @@ import axios from 'axios';
 const http = axios.create({
     timeout: 1000 * 86400,
     withCredentials: true,
-    baseURL: process.env.NODE_ENV === 'development' ? '/mock' : '/springbootypiqw',  // 开发环境指向 mock
+    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8080/springbootypiqw/user' : '/springbootypiqw',  // 开发环境指向 mock
     headers: {
         'Content-Type': 'application/json; charset=utf-8'
     }

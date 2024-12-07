@@ -1,7 +1,8 @@
 <template>
     <el-header height="60px" class="navbar">
         <div class="navbar-left">
-            <img src="logo.png" alt="Logo" class="logo">
+            <img src="..\assets\爱如火icon-removebg-preview.png" alt="Logo" class="logo">
+            <img src="..\assets\爱如火-removebg-preview.png" alt="Logo" class="logo">
         </div>
         <div class="navbar-right">
             <el-dropdown @command="handleCommand" append-to-body>
