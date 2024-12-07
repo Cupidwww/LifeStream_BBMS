@@ -45,7 +45,7 @@ public class BloodBankController {
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,BloodBankEntity bloodBank, HttpServletRequest request){
         EntityWrapper<BloodBankEntity> ew = new EntityWrapper<BloodBankEntity>();
-        PageUtils page = bloodBankService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, bloodBank), params), params));
+        PageUtils page = bloodBankService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.allEq(ew, bloodBank), params), params));
         return R.ok().put("data", page);
     }
 
@@ -55,7 +55,7 @@ public class BloodBankController {
     @RequestMapping("/lists")
     public R list( BloodBankEntity bloodBank){
         EntityWrapper<BloodBankEntity> ew = new EntityWrapper<BloodBankEntity>();
-        ew.allEq(MPUtil.allEQMapPre( bloodBank, "bloodbank")); 
+        ew.allEq(MPUtil.allEQMapPre( bloodBank, "blood_bank_management"));
         return R.ok().put("data", bloodBankService.selectListView(ew));
     }
 
@@ -65,7 +65,7 @@ public class BloodBankController {
     @RequestMapping("/query")
     public R query(BloodBankEntity bloodBank){
         EntityWrapper< BloodBankEntity> ew = new EntityWrapper< BloodBankEntity>();
-        ew.allEq(MPUtil.allEQMapPre( bloodBank, "bloodbank")); 
+        ew.allEq(MPUtil.allEQMapPre( bloodBank, "blood_bank_management"));
         BloodBankView bloodBankView =  bloodBankService.selectView(ew);
         return R.ok("查询血库管理成功").put("data", bloodBankView);
     }

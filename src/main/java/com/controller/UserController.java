@@ -60,11 +60,14 @@ public class UserController {
         }
         
         UserEntity.Role role = null;
-        if("admin".equals(roleType) && user.getRole() == UserEntity.Role.ADMIN) {
+        System.out.println("--------------------");
+        System.out.println(user.getRole());
+        System.out.println(UserEntity.Role.DONOR);
+        if("ADMIN".equals(roleType) && user.getRole() == UserEntity.Role.ADMIN) {
             role = UserEntity.Role.ADMIN;
-        } else if("employee".equals(roleType) && user.getRole() == UserEntity.Role.EMPLOYEE) {
+        } else if("EMPLOYEE".equals(roleType) && user.getRole() == UserEntity.Role.EMPLOYEE) {
             role = UserEntity.Role.EMPLOYEE;
-        } else if("donor".equals(roleType) && user.getRole() == UserEntity.Role.DONOR) {
+        } else if("DONOR".equals(roleType) && user.getRole() == UserEntity.Role.DONOR) {
             role = UserEntity.Role.DONOR;
         } else {
             return R.error("无权限登录");
@@ -295,4 +298,4 @@ public class UserController {
         userService.deleteBatchIds(Arrays.asList(ids));
         return R.ok();
     }
-} 
+}
