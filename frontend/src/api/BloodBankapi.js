@@ -43,7 +43,7 @@ const bloodBankApi = {
 
     // 更新数据
     update(data) {
-        return http.put('/bloodbank/update', data);
+        return http.post('/bloodbank/update', data);
     },
 
     // 删除数据
