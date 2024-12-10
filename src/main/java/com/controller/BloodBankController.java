@@ -95,6 +95,11 @@ public class BloodBankController {
     @RequestMapping("/save")
     public R save(@RequestBody BloodBankEntity bloodBank, HttpServletRequest request){
         bloodBank.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
+        
+        // 计算35天后的过期时间
+        Date expirationDate = new Date(bloodBank.getTransactionDate().getTime() + 35 * 24 * 60 * 60 * 1000L);
+        bloodBank.setExpirationDate(expirationDate);
+        
         bloodBankService.insert(bloodBank);
         return R.ok();
     }
@@ -106,6 +111,11 @@ public class BloodBankController {
     @RequestMapping("/add")
     public R add(@RequestBody BloodBankEntity bloodBank, HttpServletRequest request){
         bloodBank.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
+        
+        // 计算35天后的过期时间
+        Date expirationDate = new Date(bloodBank.getTransactionDate().getTime() + 35 * 24 * 60 * 60 * 1000L);
+        bloodBank.setExpirationDate(expirationDate);
+        
         bloodBankService.insert(bloodBank);
         return R.ok();
     }
