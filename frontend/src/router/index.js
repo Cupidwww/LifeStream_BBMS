@@ -1,4 +1,4 @@
-import { Avatar, Bell, Calendar, Grid, HomeFilled, List, Management, Tools } from '@element-plus/icons-vue';
+import { Avatar, Bell, Grid, HomeFilled, List, Management, Tools } from '@element-plus/icons-vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 import AuthLayout from '@/layouts/AuthLayout.vue';
@@ -15,12 +15,12 @@ const routes = [
         component: () => import('@/view/Personal_homepage.vue'),
         meta: { title: 'Personal homepage', icon: HomeFilled, layout: PageLayout },
     },
-    {
-        path: '/blood-donation',
-        name: 'BloodDonation',
-        component: () => import('@/view/Blood_donation.vue'),
-        meta: { title: 'Blood donation', icon: Calendar, layout: PageLayout },
-    },
+    // {
+    //     path: '/blood-donation',
+    //     name: 'BloodDonation',
+    //     component: () => import('@/view/Blood_donation.vue'),
+    //     meta: { title: 'Blood donation', icon: Calendar, layout: PageLayout },
+    // },
     {
         path: '/blood-record',
         name: 'BloodRecord',
@@ -63,26 +63,26 @@ const routes = [
                 component: () => import('@/view/BloodBank/BloodQuery.vue'),
                 meta: { title: 'Query', layout: PageLayout },
             },
-            {
-                path: 'inbound',
-                name: 'Inbound',
-                component: () => import('@/view/BloodBank/BloodInbound.vue'),
-                meta: { title: 'Inbound', layout: PageLayout },
-            },
-            {
-                path: 'outbound',
-                name: 'Outbound',
-                component: () => import('@/view/BloodBank/BloodOutbound.vue'),
-                meta: { title: 'Outbound', layout: PageLayout },
-            },
+            // {
+            //     path: 'inbound',
+            //     name: 'Inbound',
+            //     component: () => import('@/view/BloodBank/BloodInbound.vue'),
+            //     meta: { title: 'Inbound', layout: PageLayout },
+            // },
+            // {
+            //     path: 'outbound',
+            //     name: 'Outbound',
+            //     component: () => import('@/view/BloodBank/BloodOutbound.vue'),
+            //     meta: { title: 'Outbound', layout: PageLayout },
+            // },
         ],
     },
-    {
-        path: '/message',
-        name: 'Message',
-        component: () => import('@/view/Message_notification.vue'),
-        meta: { title: 'Message', icon: Bell, layout: PageLayout },
-    },
+    // {
+    //     path: '/message',
+    //     name: 'Message',
+    //     component: () => import('@/view/Message_notification.vue'),
+    //     meta: { title: 'Message', icon: Bell, layout: PageLayout },
+    // },
     {
         path: '/settings',
         name: 'Settings',
