@@ -35,17 +35,18 @@ public class BloodDonationController {
     /**
      * 后端列表
      */
+    @IgnoreAuth
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params, BloodDonationEntity bloodDonation,
                   HttpServletRequest request){
-        String tableName = request.getSession().getAttribute("tableName").toString();
-        // TODO: 怎么区分这两个？
-        if(tableName.equals("xianxuerenyuan")) {
-//            bloodDonation.setXianxuebianhao((String)request.getSession().getAttribute("username"));
-        }
-        if(tableName.equals("gongzuorenyuan")) {
-//            bloodDonation.setGonghao((String)request.getSession().getAttribute("username"));
-        }
+//        String tableName = request.getSession().getAttribute("tableName").toString();
+//        // TODO: 怎么区分这两个？
+//        if(tableName.equals("xianxuerenyuan")) {
+////            bloodDonation.setXianxuebianhao((String)request.getSession().getAttribute("username"));
+//        }
+//        if(tableName.equals("gongzuorenyuan")) {
+////            bloodDonation.setGonghao((String)request.getSession().getAttribute("username"));
+//        }
         EntityWrapper<BloodDonationEntity> ew = new EntityWrapper<BloodDonationEntity>();
 
         PageUtils page = bloodDonationService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, bloodDonation), params), params));
@@ -69,6 +70,7 @@ public class BloodDonationController {
     /**
      * 列表
      */
+    @IgnoreAuth
     @RequestMapping("/lists")
     public R list(BloodDonationEntity bloodDonation){
         EntityWrapper<BloodDonationEntity> ew = new EntityWrapper<BloodDonationEntity>();
@@ -109,6 +111,7 @@ public class BloodDonationController {
     /**
      * 后端保存
      */
+    @IgnoreAuth
     @RequestMapping("/save")
     public R save(@RequestBody BloodDonationEntity bloodDonation, HttpServletRequest request){
         bloodDonation.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
@@ -120,6 +123,7 @@ public class BloodDonationController {
     /**
      * 前端保存
      */
+    @IgnoreAuth
     @RequestMapping("/add")
     public R add(@RequestBody BloodDonationEntity bloodDonation, HttpServletRequest request){
         bloodDonation.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
@@ -131,6 +135,7 @@ public class BloodDonationController {
     /**
      * 修改
      */
+    @IgnoreAuth
     @RequestMapping("/update")
     @Transactional
     public R update(@RequestBody BloodDonationEntity bloodDonation, HttpServletRequest request){
@@ -142,6 +147,7 @@ public class BloodDonationController {
     /**
      * 删除
      */
+    @IgnoreAuth
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
         bloodDonationService.deleteBatchIds(Arrays.asList(ids));
@@ -151,6 +157,7 @@ public class BloodDonationController {
     /**
      * 提醒接口
      */
+    @IgnoreAuth
     @RequestMapping("/remind/{columnName}/{type}")
     public R remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
                          @PathVariable("type") String type,@RequestParam Map<String, Object> map) {

@@ -42,17 +42,18 @@ public class HealthManagementController {
     /**
      * 后端列表
      */
+    @IgnoreAuth
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params, HealthManagementEntity healthManagement,
                   HttpServletRequest request){
-        String tableName = request.getSession().getAttribute("tableName").toString();
-        // TODO: ??
-        if(tableName.equals("xianxuerenyuan")) {
-//            healthManagement.setXianxuebianhao((String)request.getSession().getAttribute("username"));
-        }
-        if(tableName.equals("gongzuorenyuan")) {
-//            healthManagement.setGonghao((String)request.getSession().getAttribute("username"));
-        }
+//        String tableName = request.getSession().getAttribute("tableName").toString();
+//        // TODO: ??
+//        if(tableName.equals("xianxuerenyuan")) {
+////            healthManagement.setXianxuebianhao((String)request.getSession().getAttribute("username"));
+//        }
+//        if(tableName.equals("gongzuorenyuan")) {
+////            healthManagement.setGonghao((String)request.getSession().getAttribute("username"));
+//        }
         EntityWrapper<HealthManagementEntity> ew = new EntityWrapper<HealthManagementEntity>();
 
         PageUtils page = healthManagementService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, healthManagement), params), params));
@@ -76,6 +77,7 @@ public class HealthManagementController {
     /**
      * 列表
      */
+    @IgnoreAuth
     @RequestMapping("/lists")
     public R list(HealthManagementEntity healthManagement){
         EntityWrapper<HealthManagementEntity> ew = new EntityWrapper<HealthManagementEntity>();
@@ -86,6 +88,7 @@ public class HealthManagementController {
     /**
      * 查询
      */
+    @IgnoreAuth
     @RequestMapping("/query")
     public R query(HealthManagementEntity healthManagement){
         EntityWrapper<HealthManagementEntity> ew = new EntityWrapper<HealthManagementEntity>();
@@ -130,6 +133,7 @@ public class HealthManagementController {
     /**
      * 前端保存
      */
+    @IgnoreAuth
     @RequestMapping("/add")
     public R add(@RequestBody HealthManagementEntity healthManagement, HttpServletRequest request){
         healthManagement.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
@@ -143,6 +147,7 @@ public class HealthManagementController {
     /**
      * 修改
      */
+    @IgnoreAuth
     @RequestMapping("/update")
     @Transactional
     public R update(@RequestBody HealthManagementEntity healthManagement, HttpServletRequest request){
@@ -157,6 +162,7 @@ public class HealthManagementController {
     /**
      * 删除
      */
+    @IgnoreAuth
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
         healthManagementService.deleteBatchIds(Arrays.asList(ids));
@@ -166,6 +172,7 @@ public class HealthManagementController {
     /**
      * 提醒接口
      */
+    @IgnoreAuth
     @RequestMapping("/remind/{columnName}/{type}")
     public R remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
                          @PathVariable("type") String type,@RequestParam Map<String, Object> map) {

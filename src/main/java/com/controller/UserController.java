@@ -143,6 +143,7 @@ public class UserController {
      * @param request HttpServletRequest
      * @return R 响应对象,包含分页信息
      */
+    @IgnoreAuth
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,UserEntity user, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");
@@ -179,6 +180,7 @@ public class UserController {
      * @param user 用户实体
      * @return R 响应对象,包含用户列表
      */
+    @IgnoreAuth
     @RequestMapping("/lists")
     public R list( UserEntity user){
         EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
@@ -191,6 +193,7 @@ public class UserController {
      * @param user 用户实体
      * @return R 响应对象,包含用户详情
      */
+    @IgnoreAuth
     @RequestMapping("/query")
     public R query(UserEntity user){
         EntityWrapper< UserEntity> ew = new EntityWrapper< UserEntity>();
@@ -204,6 +207,7 @@ public class UserController {
      * @param id 用户id
      * @return R 响应对象,包含用户详情
      */
+    @IgnoreAuth
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");
@@ -235,6 +239,7 @@ public class UserController {
      * @param request HttpServletRequest
      * @return R 响应对象
      */
+    @IgnoreAuth
     @RequestMapping("/save")
     public R save(@RequestBody UserEntity user, HttpServletRequest request){
         user.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
@@ -268,6 +273,7 @@ public class UserController {
      * @param request HttpServletRequest
      * @return R 响应对象
      */
+    @IgnoreAuth
     @RequestMapping("/update")
     public R update(@RequestBody UserEntity user, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");
@@ -289,6 +295,7 @@ public class UserController {
      * @param ids 用户id数组
      * @return R 响应对象
      */
+    @IgnoreAuth
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");

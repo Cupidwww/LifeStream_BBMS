@@ -63,6 +63,7 @@ public class BloodBankController {
     /**
      * 查询
      */
+    @IgnoreAuth
     @RequestMapping("/query")
     public R query(BloodBankEntity bloodBank){
         EntityWrapper< BloodBankEntity> ew = new EntityWrapper< BloodBankEntity>();
@@ -114,6 +115,7 @@ public class BloodBankController {
     /**
      * 修改
      */
+    @IgnoreAuth
     @RequestMapping("/update")
     public R update(@RequestBody BloodBankEntity bloodBank, HttpServletRequest request){
         bloodBankService.updateById(bloodBank);
@@ -123,6 +125,7 @@ public class BloodBankController {
     /**
      * 删除
      */
+    @IgnoreAuth
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
         bloodBankService.deleteBatchIds(Arrays.asList(ids));
