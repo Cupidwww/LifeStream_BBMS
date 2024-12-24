@@ -1,4 +1,4 @@
-import { Avatar, Bell, Grid, HomeFilled, List, Management, Tools } from '@element-plus/icons-vue';
+import { Avatar, Grid, HomeFilled, List, Management, Tools } from '@element-plus/icons-vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 import AuthLayout from '@/layouts/AuthLayout.vue';

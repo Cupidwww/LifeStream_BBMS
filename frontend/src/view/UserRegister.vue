@@ -4,12 +4,14 @@
         <div class="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
           <div class="text-center mb-8">
             <img
-              src="ogo"
+             src="..\assets\爱如火icon-removebg-preview.png"
               alt="血库管理系统"
-              class="mx-auto h-16 w-auto mb-4"
+              class="w-16 h-16"
+               style="max-width: 100px; max-height: 100px; margin-bottom: 8px;"
             />
-            <h1 class="text-3xl font-bold text-gray-900">血库管理系统</h1>
-            <p class="text-xl text-gray-600">用户注册</p>
+            <h1 class="text-3xl font-bold text-gray-900" style="margin-top: 0;">Blood bank management system</h1>
+            <p class="text-xl text-gray-600">User Registration
+            </p>
           </div>
   
           <div class="mb-6">
@@ -118,14 +120,16 @@
                   href="#"
                   class="text-custom hover:text-custom-dark"
                 >
-                  用户协议
+                user agreement
                 </a>
-                和
+                and
                 <a
                   href="#"
                   class="text-custom hover:text-custom-dark"
                 >
-                  隐私政策
+                  
+privacy policy
+
                 </a>
               </label>
             </div>
@@ -134,16 +138,17 @@
               <button
                 type="submit"
                 class="register-button"
+                 @click="register"
               >
-                regester
+                register
               </button>
             </div>
   
           <div class="mt-6 text-center">
             <p class="text-sm text-gray-600">
-              已有账号？
+              Already have an account
               <router-link to="/login" class="font-medium text-custom hover:text-custom-dark">
-                立即登录
+                Sign in now
               </router-link>
             </p>
           </div>
@@ -223,82 +228,89 @@
   
   
   <script>
-  export default {
-    data() {
-      return {
-        user: {
-          username: '',
-          password: '',
-          confirmPassword: '',
-          phone: '',
-          idNumber: '', 
-          agreeTerms: false,
-        },
-        passwordStrength: 0,
-        passwordStrengthText: '',
-        passwordStrengthWidth: '0%',
-      };
-    },
-    methods: {
-      register() {
-        // 注册逻辑
-      },
-      sendVerificationCode() {
-        // 发送验证码逻辑
-      },
-      checkPasswordStrength() {
-        const password = this.user.password;
-        let strength = 0;
+      import userapi from '@/api/userapi';
 
-  
-        if (password.length >= 8) strength += 1;
-        if (password.match(/[a-z]+/)) strength += 1;
-        if (password.match(/[A-Z]+/)) strength += 1;
-        if (password.match(/[0-9]+/)) strength += 1;
-        if (password.match(/[$@#&!]+/)) strength += 1;
-  
-        this.passwordStrength = strength;
-        this.passwordStrengthText = this.getPasswordStrengthText(strength);
-        this.passwordStrengthWidth = this.getPasswordStrengthWidth(strength);
+
+export default {
+  data() {
+    return {
+      user: {
+        username: '',
+        password: '',
+        confirmPassword: '',
+        phone: '',
+        idNumber: '', 
+        agreeTerms: false,
       },
-      getPasswordStrengthText(strength) {
-        switch (strength) {
-          case 0:
-          case 1:
-            return '密码强度：弱（建议至少8个字符）';
-          case 2:
-          case 3:
-            return '密码强度：中等（建议包含大小写字母、数字和特殊字符）';
-          case 4:
-          case 5:
-            return '密码强度：强';
-          default:
-            return '';
-        }
-      },
-      getPasswordStrengthWidth(strength) {
-        switch (strength) {
-          case 0:
-          case 1:
-            return '20%';
-          case 2:
-          case 3:
-            return '60%';
-          case 4:
-          case 5:
-            return '100%';
-          default:
-            return '0%';
-        }
-      },
-    },
-    watch: {
-      'user.password': {
-        handler() {
-          this.checkPasswordStrength();
-        },
-        immediate: true,
-      },
-    },
-  };
+      passwordStrength: 0,
+      passwordStrengthText: '',
+      passwordStrengthWidth: '0%',
+    };
+  },
+  methods: {
+checkPasswordStrength() {
+  const password = this.user.password;
+  let strength = 0;
+
+  if (password.length >= 8) {
+    if (password.match(/[a-z]+/)) strength += 1;
+    if (password.match(/[A-Z]+/)) strength += 1;
+    if (password.match(/[0-9]+/)) strength += 1;
+    if (password.match(/[$@#&!]+/)) strength += 1;
+  }
+
+  this.passwordStrength = strength;
+  this.passwordStrengthText = this.getPasswordStrengthText(strength);
+  this.passwordStrengthWidth = this.getPasswordStrengthWidth(strength);
+},
+
+
+
+
+register() {
+const formData = {
+  username: this.user.username,
+  password: this.user.password,
+  confirmPassword: this.user.confirmPassword,
+  phone: this.user.phone,
+  idNumber: this.user.idNumber,
+  email: this.user.email,
+};
+
+if (!formData.username || !formData.password || !formData.confirmPassword || !formData.phone || !formData.idNumber || !formData.email) {
+  this.$message.error('Please fill in all required fields');
+  return;
+}
+
+if (formData.password !== formData.confirmPassword) {
+  this.$message.error('The two passwords are different');
+  return;
+}
+
+// 使用 userapi 中封装的接口
+userapi.registerUser(formData)
+.then(response => {
+
+
+  // 假设后端返回的数据里有一个 message 字段
+  const successMessage = response.data.message || 'Registration successful, please login';
+  this.$message.success(successMessage); // 使用响应中的消息
+
+  // 跳转到登录页面
+  this.$router.push('/login');
+})
+.catch(error => {
+  // 获取错误消息并显示给用户
+  const errorMessage = error.response?.data?.msg || 'Registration failed, please try again later';
+  this.$message.error(errorMessage);
+});
+
+
+
+}
+}
+}
+
+
+
   </script>
