@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import com.entity.UserEntity;
 import com.entity.view.UserView;
+import com.entity.model.LoginRequestModel;
 import com.service.UserService;
 import com.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,11 @@ public class UserController {
      */
     @IgnoreAuth
     @RequestMapping(value = "/login")
-    public R login(String username, String password, String roleType, HttpServletRequest request) {
+    public R login(@RequestBody LoginRequestModel loginRequest) {
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
+        String roleType = loginRequest.getRoleType();
+    
         System.out.println("收到的username: " + username);
         System.out.println("收到的password: " + password);
         System.out.println("收到的roleType: " + roleType);
@@ -147,7 +152,7 @@ public class UserController {
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,UserEntity user, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");
-        if("管理员".equals(role)) {
+        if("ADMIN".equals(role)) {
             EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
             PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, user), params), params));
             return R.ok().put("data", page);
@@ -211,7 +216,7 @@ public class UserController {
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");
-        if(!"管理员".equals(role)) {
+        if(!"ADMIN".equals(role)) {
             Long userId = (Long)request.getSession().getAttribute("userId");
             if(!userId.equals(id)) {
                 return R.error(403, "无权限访问");
@@ -277,7 +282,7 @@ public class UserController {
     @RequestMapping("/update")
     public R update(@RequestBody UserEntity user, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");
-        if("管理员".equals(role)) {
+        if("ADMIN".equals(role)) {
             userService.updateById(user);
         } else {
             Long userId = (Long)request.getSession().getAttribute("userId");
@@ -299,7 +304,7 @@ public class UserController {
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");
-        if(!"管理员".equals(role)) {
+        if(!"ADMIN".equals(role)) {
             return R.error(403, "无权限访问");
         }
         userService.deleteBatchIds(Arrays.asList(ids));

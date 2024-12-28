@@ -7,7 +7,7 @@ import PageLayout from '@/layouts/PageLayout.vue';
 const routes = [
     {
         path: '/',
-        redirect: '/home',
+        redirect: '/login',
     },
     {
         path: '/home',

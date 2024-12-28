@@ -98,8 +98,13 @@ public class BloodBankController {
     public R save(@RequestBody BloodBankEntity bloodBank, HttpServletRequest request){
         bloodBank.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
         
+        // 设置入库时间为当前时间
+        Date now = new Date();
+        bloodBank.setAddtime(now);
+        bloodBank.setTransactionDate(now);  // 入库时间与添加时间一致
+        
         // 计算35天后的过期时间
-        Date expirationDate = new Date(bloodBank.getTransactionDate().getTime() + 35 * 24 * 60 * 60 * 1000L);
+        Date expirationDate = new Date(now.getTime() + 35 * 24 * 60 * 60 * 1000L);
         bloodBank.setExpirationDate(expirationDate);
         
         bloodBankService.insert(bloodBank);
@@ -114,8 +119,13 @@ public class BloodBankController {
     public R add(@RequestBody BloodBankEntity bloodBank, HttpServletRequest request){
         bloodBank.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
         
+        // 设置入库时间为当前时间
+        Date now = new Date();
+        bloodBank.setAddtime(now);
+        bloodBank.setTransactionDate(now);  // 入库时间与添加时间一致
+        
         // 计算35天后的过期时间
-        Date expirationDate = new Date(bloodBank.getTransactionDate().getTime() + 35 * 24 * 60 * 60 * 1000L);
+        Date expirationDate = new Date(now.getTime() + 35 * 24 * 60 * 60 * 1000L);
         bloodBank.setExpirationDate(expirationDate);
         
         bloodBankService.insert(bloodBank);

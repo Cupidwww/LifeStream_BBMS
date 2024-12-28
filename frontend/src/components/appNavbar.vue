@@ -7,7 +7,7 @@
         <div class="navbar-right">
             <el-dropdown @command="handleCommand" append-to-body>
                 <span class="el-dropdown-link">
-                    <el-avatar src="avatar.jpg" size="40" class="avatar" />
+                    <el-avatar :src="image" size="40" class="avatar" />
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
@@ -29,14 +29,37 @@
 </template>
 
 <script>
+import userApi from '@/api/userapi'; // 导入 API 方法
+import { useRouter } from 'vue-router'; // 导入 useRouter
+
 export default {
+    data() {
+        return {
+            image: require('@/assets/avatar.png'), // 头像图片路径
+        };
+    },
     setup() {
-        const handleCommand = (command) => {
+        const router = useRouter();
+
+        const handleCommand = async (command) => {
             if (command === 'profile') {
                 console.log('跳转到用户详情页面');
             } else if (command === 'logout') {
-                console.log('退出成功！');
+                try {
+                    const response = await userApi.logoutUser(); // 调用 API 登出
+                    console.log(response.status);
+                    if (response.status === 200) {
+                        router.push('/login'); // 跳转到登录页面
+                        console.log('登出成功');
+                    } else {
+                        console.log('登出失败');
+                    }
+                } catch (error) {
+                    console.error('登出请求出错:', error); // 处理请求过程中出现的错误
+                    console.log('登出失败');
+                }
             }
+
         };
         return { handleCommand };
     }

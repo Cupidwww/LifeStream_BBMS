@@ -14,25 +14,25 @@
   <div class=box>
     <!-- 用户名 -->
     <div class="mb-4">
-
       <input
         id="username"
         type="text"
+        ref="usernameInput"
         placeholder="Please enter username"
         class="input1"
-         v-model="username"
+        v-model="username"        
       />
     </div>
 
     <!-- 密码 -->
     <div class="mb-4">
-
       <input
         id="password"
         type="password"
+        ref="passwordInput"
         placeholder="Please enter password"
         class="input1"
-         v-model="password"
+        v-model="password"
       />
     </div>
 
@@ -42,6 +42,7 @@
         <input
           type="checkbox"
           class="form-checkbox text-blue-500 border-gray-300 rounded"
+          v-model="rememberMe"
         />
         <span class="ml-2 text-sm text-gray-600">remember me</span>
       </label>
@@ -76,24 +77,25 @@
 </template>
 
 <script>
-import { getUserInfo, loginUser } from '@/api/userapi'; // 导入 API 方法
+import userApi from '@/api/userapi'; // 导入 API 方法
 
 export default {
   data() {
     return {
-      username: '',     // 存储用户名
-      password: '',     // 存储密码
-      rememberMe: false, // 存储 "记住我" 复选框状态
+      username: localStorage.getItem('username') || '',     // 存储用户名
+      password: localStorage.getItem('password') || '',     // 存储密码
+      rememberMe: localStorage.getItem('rememberMe') === 'true',
     };
   },
   methods: {
     // 登录方法
     async handleLogin() {
+      console.log(this.username, this.password);
       // 获取用户名和密码
       const loginData = {
         username: this.username,
         password: this.password,
-        rememberMe: this.rememberMe, // "记住我"的状态
+        roleType: 'ADMIN', // 假设角色为'ADMIN', 可以根据需求修改
       };
 
       // 检查用户名和密码是否为空
@@ -104,26 +106,50 @@ export default {
 
       try {
         // 调用登录接口
-        const response = await loginUser(loginData);
+        const response = await userApi.loginUser(loginData);
 
-        // 登录成功后，获取用户信息（可选）
-        const userInfoResponse = await getUserInfo();
-        console.log('用户信息:', userInfoResponse.data);
+        // 登录成功后存储token
+        localStorage.setItem('token', response.data.token);
 
-        // 假设后端返回的 response.data.message 为成功消息
-        this.$message.success(response.data.message || 'successful！');
+        console.log(response.data.token);
+
+        // 记住我功能
+        if (this.rememberMe) {
+          localStorage.setItem('username', this.username);
+          localStorage.setItem('password', this.password);
+          localStorage.setItem('rememberMe', true);
+        } else {
+          localStorage.removeItem('username');
+          localStorage.removeItem('password');
+          localStorage.removeItem('rememberMe');
+        }
+
+        //删除输入框中的内容
+        this.username = '';
+        this.password = '';
+        this.$nextTick(() => {
+          this.$forceUpdate(); // 强制刷新组件视图
+        });
+
+        // 显示成功消息
+        this.$message.success('登录成功');
+
+        // 打印 localStorage 中的值
+        console.log('username:', this.username);
+        console.log('password:', this.password);
 
         // 登录成功后跳转到主页面
-        this.$router.push('/home');  // 假设登录成功后跳转到 `/dashboard` 页面
+        this.$router.push('/home');  // 假设登录成功后跳转到 `/home` 页面
       } catch (error) {
         // 错误处理
-        const errorMessage = error.response?.data?.msg || 'Registration failed, please try again later';
+        const errorMessage = error.response?.data?.msg || '登录失败，请稍后再试';
         this.$message.error(errorMessage);
       }
     },
   },
 };
 </script>
+
 
 
 

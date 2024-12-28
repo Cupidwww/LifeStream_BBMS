@@ -1,24 +1,51 @@
 import http from '@/utils/http'; // 确保路径正确
 
-// 注册用户接口
-export const registerUser = (userData) => {
-  return http.post('/register', userData);
+const userApi = {
+  // 注册用户接口
+  registerUser(userData) {
+    return http.post('/user/register', userData); // 使用完整的路径
+  },
+
+  // 登录接口
+  loginUser(userData) {
+    return http.post('/user/login', userData); // 使用完整的路径
+  },
+
+  // 退出登录接口
+  logoutUser() {
+    return http.post('/user/logout'); // 使用完整的路径
+  },
+
+  // 获取用户信息接口
+  getUserInfo() {
+    return http.get('/user/session'); // 使用完整的路径
+  },
+
+  // 密码重置接口
+  resetPassword(username) {
+    return http.post('/user/resetPass', { username });
+  },
+
+  // 获取用户列表（前端）
+  getUserList(params) {
+    return http.get('/user/list', { params }); // 使用GET请求并传递查询参数
+  },
+
+  // 获取用户详情
+  getUserDetail(id) {
+    return http.get(`/user/detail/${id}`); // 使用路径参数
+  },
+
+  // 更新用户信息接口
+  updateUser(userData) {
+    return http.post('/user/update', userData); // 使用POST请求更新用户信息
+  },
+
+  // 删除用户接口
+  deleteUser(ids) {
+    return http.post('/user/delete', ids); // 批量删除用户
+  }
 };
 
-// 示例：其他用户相关接口
-// 登录接口
-export const loginUser = (loginData) => {
-  return http.post('/login', loginData);
-};
-
-// 获取用户信息
-export const getUserInfo = () => {
-  return http.get('/resetPass');
-};
-
-// 导出所有接口
-export default {
-  registerUser,
-  loginUser,
-  getUserInfo,
-};
+// 导出用户相关接口
+export default userApi;
