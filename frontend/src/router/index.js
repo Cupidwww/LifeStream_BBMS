@@ -7,7 +7,7 @@ import PageLayout from '@/layouts/PageLayout.vue';
 const routes = [
     {
         path: '/',
-        redirect: '/login',
+        redirect: '/index',
     },
     {
         path: '/home',
@@ -99,6 +99,12 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: () => import('@/view/UserRegister.vue'),
+        meta: { layout: AuthLayout },
+    },
+    {
+        path: '/index',
+        name: 'index',
+        component: () => import('@/view/LoginRegister.vue'),
         meta: { layout: AuthLayout },
     },
 ];

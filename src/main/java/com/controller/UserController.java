@@ -91,10 +91,11 @@ public class UserController {
     @IgnoreAuth
     @RequestMapping("/register")
     public R register(@RequestBody UserEntity user){
+        System.out.println(user.getUsername());
         if(userService.selectOne(new EntityWrapper<UserEntity>().eq("username", user.getUsername())) !=null) {
             return R.error("用户已存在");
         }
-        
+        user.setId(new Date().getTime() + new Double(Math.floor(Math.random()*1000)).longValue());
         user.setRole(UserEntity.Role.DONOR); // 使用完整的枚举类型名
         userService.insert(user);
         return R.ok();

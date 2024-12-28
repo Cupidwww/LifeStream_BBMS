@@ -49,7 +49,7 @@ export default {
                     const response = await userApi.logoutUser(); // 调用 API 登出
                     console.log(response.status);
                     if (response.status === 200) {
-                        router.push('/login'); // 跳转到登录页面
+                        router.push('/index'); // 跳转到登录页面
                         console.log('登出成功');
                     } else {
                         console.log('登出失败');
