@@ -12,7 +12,7 @@
             
             <!-- 注册面板 -->
             <div class="form-container sign-up-container" v-show="isSignUp">
-                <form>
+                <form >
                 <h1>sign up</h1>
                 <div class="txtb">
                     <input type="text" v-model="registerData.username" @focus="focusInput" @blur="blurInput" />
@@ -34,16 +34,16 @@
                 </form>
             </div>
 
-            <!-- 登录面板 -->
+            <!-- 登录面板 --> 
             <div class="form-container sign-in-container" v-show="!isSignUp">
-                <form>
+                <form ref="myForm">
                     <h1>sign in</h1>
                     <div class="txtb">
-                        <input type="text" v-model="loginData.username" @focus="focusInput" @blur="blurInput" />
+                        <input type="text" v-model="loginData.username" @focus="focusInput" @blur="blurInput"/>
                         <span :class="{ focus: loginData.username }" data-placeholder="Username"></span>
                     </div>
                     <div class="txtb">
-                        <input type="password" v-model="loginData.password" @focus="focusInput" @blur="blurInput" />
+                        <input type="password" v-model="loginData.password" @focus="focusInput" @blur="blurInput"/>
                         <span :class="{ focus: loginData.password }" data-placeholder="Password"></span>
                     </div>
                     <div class="remember-me">
@@ -84,6 +84,10 @@
             </el-col>
             </el-row>
         </div>
+        <!-- 气泡容器 -->
+        <div class="bubbles-container">
+            <div v-for="(bubble, index) in bubbles" :key="index" class="bubble" :style="bubble.style"></div>
+        </div>
     </div>
 </template>
 
@@ -106,8 +110,8 @@ export default {
                 username: localStorage.getItem('username') || '',     // 存储用户名
                 password: localStorage.getItem('password') || '',     // 存储密码
                 rememberMe: localStorage.getItem('rememberMe') === 'true',
-            }
-            
+            },
+            bubbles: [], // 存储气泡数据
         };
     },
     methods: {
@@ -221,8 +225,39 @@ export default {
             if (event.target.value === '') {
                 event.target.classList.remove('focus');
             }
+        },
+
+        // 生成气泡
+        createBubble() {
+            if (this.bubbles.length >= 10) return; // 限制气泡数量
+            
+            const bubble = {
+                style: {
+                    left: Math.random() * 100 + 'vw',
+                    animationDuration: Math.random() * 3 + 2 + 's'
+                }
+            };
+            this.bubbles.push(bubble);
+
+            // 在动画结束后移除气泡
+            setTimeout(() => {
+                this.bubbles = this.bubbles.filter(b => b !== bubble); // 准确移除当前气泡
+            }, parseFloat(bubble.style.animationDuration) * 1000);
+        },
+        startBubbleAnimation() {
+            this.createBubble();
+            requestAnimationFrame(this.startBubbleAnimation);
+        },
+    },
+    mounted() {
+        // 使用 Vue 的 ref 获取表单元素
+        const form = this.$refs.myForm;
+        if (form) {
+            form.setAttribute('autocomplete', 'off');
         }
-    }
+        // 每隔500毫秒生成一个气泡
+        setInterval(this.createBubble, 800);
+    },
 };
 </script>
 
@@ -254,5 +289,38 @@ export default {
     top: 2px;
 }
 
+.bubbles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    animation: rise 5s infinite linear;
+}
+
+@keyframes rise {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    50% {
+        transform: translate3d(0, -50vh, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate3d(0, -100vh, 0);
+        opacity: 0;
+    }
+}
 
 </style>
