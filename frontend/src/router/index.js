@@ -39,6 +39,12 @@ const routes = [
         meta: { title: 'User management', icon: Avatar, layout: PageLayout },
         children: [
             {
+                path: 'user',
+                name: 'User',
+                component: () => import('@/view/UserManagement/UserManagement.vue'),
+                meta: { title: 'User', layout: PageLayout },
+            },
+            {
                 path: 'donor',
                 name: 'Donor',
                 component: () => import('@/view/UserManagement/DonorManagement.vue'),

@@ -153,6 +153,7 @@ public class UserController {
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,UserEntity user, HttpServletRequest request){
         String role = (String)request.getSession().getAttribute("role");
+        System.out.println("role: " + role);
         if("ADMIN".equals(role)) {
             EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
             PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, user), params), params));

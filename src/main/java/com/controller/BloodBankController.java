@@ -31,6 +31,7 @@ public class BloodBankController {
     /**
      * 后端列表
      */
+    // 支持模糊搜索，范围搜索，排序，分页
     @IgnoreAuth
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,BloodBankEntity bloodBank, HttpServletRequest request){
@@ -42,6 +43,7 @@ public class BloodBankController {
     /**
      * 前端列表
      */
+    // 不支持模糊搜索，支持范围搜索，排序，分页
     @IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,BloodBankEntity bloodBank, HttpServletRequest request){

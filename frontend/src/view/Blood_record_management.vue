@@ -23,7 +23,7 @@
             <el-table-column v-for="(value, key) in tableData[0]" :key="key" :prop="key" :label="key" />
 
             <!-- 操作列 -->
-            <el-table-column label="operation" align="center">
+            <el-table-column label="operation" align="center" min-width="120">
                 <template #default="scope">
                     <el-button type="primary" size="small" @click="handleEdit(scope.row)">
                         <el-icon>

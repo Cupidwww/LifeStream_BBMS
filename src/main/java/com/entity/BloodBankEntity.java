@@ -60,8 +60,8 @@ public class BloodBankEntity implements Serializable {
     /**
      * 血液来源（外键）
      */
-    @TableField("bloodSource")
-    private String bloodSource;
+    @TableField("bloodDonationID")
+    private Long bloodDonationID;
 
     /**
      * 备注
@@ -175,16 +175,16 @@ public class BloodBankEntity implements Serializable {
      * 获取血液来源
      * @return 血液来源
      */
-    public String getBloodSource() {
-        return bloodSource;
+    public Long getbloodDonationID() {
+        return bloodDonationID;
     }
 
     /**
      * 设置血液来源
-     * @param bloodSource 血液来源
+     * @param bloodDonationID 血液来源
      */
-    public void setBloodSource(String bloodSource) {
-        this.bloodSource = bloodSource;
+    public void setBloodDonationID(Long bloodDonationID) {
+        this.bloodDonationID = bloodDonationID;
     }
 
     /**

@@ -26,9 +26,14 @@ const userApi = {
     return http.post('/user/resetPass', { username });
   },
 
+  // 获取用户列表（后端）
+  getPage(params, user) {
+    return http.get('/user/page', user, { params }); // 使用完整的路径
+  },
+
   // 获取用户列表（前端）
-  getUserList(params) {
-    return http.get('/user/list', { params }); // 使用GET请求并传递查询参数
+  getUserList(params, user) {
+    return http.get('/user/list', user, { params }); // 使用GET请求并传递查询参数
   },
 
   // 获取用户详情

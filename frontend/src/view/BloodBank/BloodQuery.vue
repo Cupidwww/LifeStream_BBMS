@@ -23,7 +23,7 @@
             <el-table-column v-for="(value, key) in tableData[0]" :key="key" :prop="key" :label="key" />
 
             <!-- 操作列 -->
-            <el-table-column label="operation" align="center">
+            <el-table-column label="operation" align="center" min-width="120">
                 <template #default="scope">
                     <el-button type="primary" size="small" @click="handleEdit(scope.row)">
                         <el-icon><edit /></el-icon>
@@ -42,72 +42,65 @@
             @size-change="handleSizeChange" />
 
         <!-- 添加数据弹窗 -->
-    <el-dialog v-model="showAddDialog" title="添加血液记录">
-        <el-form :model="newRecord" label-width="100px">
-            <el-form-item label="Blood Type" :rules="[{ required: true, message: 'Blood Type is required', trigger: 'blur' }]">
-                <el-input v-model="newRecord.bloodType" />
-            </el-form-item>
-            <el-form-item label="Category" :rules="[{ required: true, message: 'Blood Category is required', trigger: 'blur' }]">
-                <el-input v-model="newRecord.bloodCategory" />
-            </el-form-item>
-            <el-form-item label="Amount" :rules="[{ required: true, message: 'Blood Volume is required', trigger: 'blur' }]">
-                <el-input v-model="newRecord.bloodVolume" type="number" />
-            </el-form-item>
-            <el-form-item label="Date" :rules="[{ required: true, message: 'Transaction Date is required', trigger: 'change' }]">
-                <el-date-picker v-model="newRecord.transactionDate" type="date" placeholder="Choose Date" />
-            </el-form-item>
-            <el-form-item label="Expiration Date" :rules="[{ required: true, message: 'Expiration Date is required', trigger: 'change' }]">
-                <el-date-picker v-model="newRecord.expirationDate" type="date" placeholder="Choose Expiration Date" />
-            </el-form-item>
-            <el-form-item label="Blood Source" :rules="[{ required: true, message: 'Blood Source is required', trigger: 'blur' }]">
-                <el-input v-model="newRecord.bloodSource" />
-            </el-form-item>
-            <el-form-item label="Remarks">
-                <el-input v-model="newRecord.remarks" />
-            </el-form-item>
-        </el-form>
-        <template v-slot:footer>
-            <div class="dialog-footer">
-                <el-button @click="showAddDialog = false">Cancel</el-button>
-                <el-button type="primary" @click="handleAddRecord">Confirm</el-button>
-            </div>
-        </template>
-    </el-dialog>
+        <el-dialog v-model="showAddDialog" title="添加血液记录">
+            <el-form :model="newRecord" label-width="100px">
+                <el-form-item label="Blood Type" :rules="[{ required: true, message: 'Blood Type is required', trigger: 'blur' }]">
+                    <el-input v-model="newRecord.bloodType" />
+                </el-form-item>
+                <el-form-item label="Category" :rules="[{ required: true, message: 'Blood Category is required', trigger: 'blur' }]">
+                    <el-input v-model="newRecord.bloodCategory" />
+                </el-form-item>
+                <el-form-item label="Amount" :rules="[{ required: true, message: 'Blood Volume is required', trigger: 'blur' }]">
+                    <el-input v-model="newRecord.bloodVolume" type="number" />
+                </el-form-item>
+                <el-form-item label="Date" :rules="[{ required: true, message: 'Transaction Date is required', trigger: 'change' }]">
+                    <el-date-picker v-model="newRecord.transactionDate" type="date" placeholder="Choose Date" />
+                </el-form-item>
+                <el-form-item label="Blood Donor ID" :rules="[{ required: true, message: 'Blood Donor ID is required', trigger: 'blur' }]">
+                    <el-input v-model="newRecord.bloodDonorId" />
+                </el-form-item>
+                <el-form-item label="Remarks">
+                    <el-input v-model="newRecord.remarks" />
+                </el-form-item>
+            </el-form>
+            <template v-slot:footer>
+                <div class="dialog-footer">
+                    <el-button @click="showAddDialog = false">Cancel</el-button>
+                    <el-button type="primary" @click="handleAddRecord">Confirm</el-button>
+                </div>
+            </template>
+        </el-dialog>
 
 
         <!-- 编辑数据弹窗 -->
-    <el-dialog v-model="showEditDialog" title="编辑血液记录">
-        <el-form :model="editRecord" label-width="100px">
-            <el-form-item label="Blood Type" :rules="[{ required: true, message: 'Blood Type is required', trigger: 'blur' }]">
-                <el-input v-model="editRecord.bloodType" />
-            </el-form-item>
-            <el-form-item label="Category" :rules="[{ required: true, message: 'Blood Category is required', trigger: 'blur' }]">
-                <el-input v-model="editRecord.bloodCategory" />
-            </el-form-item>
-            <el-form-item label="Amount" :rules="[{ required: true, message: 'Blood Volume is required', trigger: 'blur' }]">
-                <el-input v-model="editRecord.bloodVolume" type="number" />
-            </el-form-item>
-            <el-form-item label="Date" :rules="[{ required: true, message: 'Transaction Date is required', trigger: 'change' }]">
-                <el-date-picker v-model="editRecord.transactionDate" type="date" placeholder="Choose Date" />
-            </el-form-item>
-            <el-form-item label="Expiration Date" :rules="[{ required: true, message: 'Expiration Date is required', trigger: 'change' }]">
-                <el-date-picker v-model="editRecord.expirationDate" type="date" placeholder="Choose Expiration Date" />
-            </el-form-item>
-            <el-form-item label="Blood Source" :rules="[{ required: true, message: 'Blood Source is required', trigger: 'blur' }]">
-                <el-input v-model="editRecord.bloodSource" />
-            </el-form-item>
-            <el-form-item label="Remarks">
-                <el-input v-model="editRecord.remarks" />
-            </el-form-item>
-        </el-form>
-        <template v-slot:footer>
-            <div class="dialog-footer">
-                <el-button @click="showEditDialog = false">Cancel</el-button>
-                <el-button type="primary" @click="handleUpdateRecord">Confirm</el-button>
-            </div>
-        </template>
-    </el-dialog>
-
+        <el-dialog v-model="showEditDialog" title="编辑血液记录">
+            <el-form :model="editRecord" label-width="100px">
+                <el-form-item label="Blood Type" :rules="[{ required: true, message: 'Blood Type is required', trigger: 'blur' }]">
+                    <el-input v-model="editRecord.bloodType" />
+                </el-form-item>
+                <el-form-item label="Category" :rules="[{ required: true, message: 'Blood Category is required', trigger: 'blur' }]">
+                    <el-input v-model="editRecord.bloodCategory" />
+                </el-form-item>
+                <el-form-item label="Amount" :rules="[{ required: true, message: 'Blood Volume is required', trigger: 'blur' }]">
+                    <el-input v-model="editRecord.bloodVolume" type="number" />
+                </el-form-item>
+                <el-form-item label="Date" :rules="[{ required: true, message: 'Transaction Date is required', trigger: 'change' }]">
+                    <el-date-picker v-model="editRecord.transactionDate" type="date" placeholder="Choose Date" />
+                </el-form-item>
+                <el-form-item label="Blood Donor ID" :rules="[{ required: true, message: 'Blood Donor ID is required', trigger: 'blur' }]">
+                    <el-input v-model="newRecord.bloodDonorId" />
+                </el-form-item>
+                <el-form-item label="Remarks">
+                    <el-input v-model="editRecord.remarks" />
+                </el-form-item>
+            </el-form>
+            <template v-slot:footer>
+                <div class="dialog-footer">
+                    <el-button @click="showEditDialog = false">Cancel</el-button>
+                    <el-button type="primary" @click="handleUpdateRecord">Confirm</el-button>
+                </div>
+            </template>
+        </el-dialog>
 
         <!-- 插入数据按钮 -->
         <el-button type="primary" @click="showAddDialog = true">Add New Record</el-button>
@@ -142,8 +135,7 @@ export default {
                 bloodCategory: "whole blood",
                 bloodVolume: 250.0,
                 transactionDate: "2024-12-08 10:00:00",
-                expirationDate: "2124-12-15 10:00:00",
-                bloodSource: "hospital",
+                bloodDonorId: 1234,
                 remarks: "This is a test record.",
                 addtime: "2024-12-08 10:00:00"
             },
@@ -154,8 +146,7 @@ export default {
                 bloodCategory: "",
                 bloodVolume: null,
                 transactionDate: null,
-                expirationDate: null,
-                bloodSource: "",
+                bloodDonorId: null,
                 remarks: "",
             },
         };

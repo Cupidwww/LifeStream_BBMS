@@ -50,7 +50,7 @@ public class BloodBankModel extends BloodBankEntity implements Serializable {
     /**
      * 血液来源
      */
-    private String bloodSource;
+    private Long bloodDonationID;
 
     /**
      * 备注
@@ -97,12 +97,12 @@ public class BloodBankModel extends BloodBankEntity implements Serializable {
         this.expirationDate = expirationDate;
     }
 
-    public String getBloodSource() {
-        return bloodSource;
+    public Long getBloodDonationID() {
+        return bloodDonationID;
     }
 
-    public void setBloodSource(String bloodSource) {
-        this.bloodSource = bloodSource;
+    public void setBloodDonationID(Long bloodDonationID) {
+        this.bloodDonationID = bloodDonationID;
     }
 
     public String getRemarks() {
