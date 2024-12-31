@@ -56,7 +56,7 @@ public class BloodBankController {
      * 列表
      */
     @RequestMapping("/lists")
-    public R list( BloodBankEntity bloodBank){
+    public R list(@RequestBody BloodBankEntity bloodBank){
         EntityWrapper<BloodBankEntity> ew = new EntityWrapper<BloodBankEntity>();
         ew.allEq(MPUtil.allEQMapPre( bloodBank, "blood_bank_management"));
         return R.ok().put("data", bloodBankService.selectListView(ew));

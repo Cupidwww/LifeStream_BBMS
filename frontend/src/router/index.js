@@ -61,14 +61,15 @@ const routes = [
     {
         path: '/blood-bank',
         name: 'BloodBank',
+        component: () => import('@/view/BloodBank/BloodQuery.vue'),
         meta: { title: 'Blood bank', icon: Grid, layout: PageLayout },
-        children: [
-            {
-                path: 'query',
-                name: 'Query',
-                component: () => import('@/view/BloodBank/BloodQuery.vue'),
-                meta: { title: 'Query', layout: PageLayout },
-            },
+        // children: [
+        //     {
+        //         path: 'query',
+        //         name: 'Query',
+        //         component: () => import('@/view/BloodBank/BloodQuery.vue'),
+        //         meta: { title: 'Query', layout: PageLayout },
+        //     },
             // {
             //     path: 'inbound',
             //     name: 'Inbound',
@@ -81,7 +82,7 @@ const routes = [
             //     component: () => import('@/view/BloodBank/BloodOutbound.vue'),
             //     meta: { title: 'Outbound', layout: PageLayout },
             // },
-        ],
+        // ],
     },
     // {
     //     path: '/message',

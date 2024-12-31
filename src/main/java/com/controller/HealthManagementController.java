@@ -79,9 +79,11 @@ public class HealthManagementController {
      */
     @IgnoreAuth
     @RequestMapping("/lists")
-    public R list(HealthManagementEntity healthManagement){
+    public R list(@RequestBody HealthManagementEntity healthManagement){
         EntityWrapper<HealthManagementEntity> ew = new EntityWrapper<HealthManagementEntity>();
-        ew.allEq(MPUtil.allEQMapPre( healthManagement, "healthManagement"));
+        // ew.allEq(MPUtil.allEQMapPre( healthManagement, "healthManagement")); 
+        // 外键冲突引起wrapper自动填充列别名，但是数据库没有定义别名，会导致查询失败
+        ew.allEq(MPUtil.allEQMapPre( healthManagement, ""));
         return R.ok().put("data", healthManagementService.selectListView(ew));
     }
 

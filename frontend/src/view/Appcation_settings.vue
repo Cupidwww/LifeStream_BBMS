@@ -1,101 +1,179 @@
 <template>
-    <div class="settings-container">
-        <el-card class="settings-card">
-            <h1>Application Settings</h1>
-            <p>This is the application settings page.</p>
-
-            <!-- 用户偏好设置 -->
-            <el-divider content-position="left">User Preferences</el-divider>
-            <el-form label-width="150px">
-                <el-form-item label="Enable Notifications">
-                    <el-switch v-model="preferences.notifications" />
-                </el-form-item>
-                <el-form-item label="Enable Dark Mode">
-                    <el-switch v-model="preferences.darkMode" />
-                </el-form-item>
-            </el-form>
-
-            <!-- 主题切换 -->
-            <el-divider content-position="left">Theme</el-divider>
-            <el-form label-width="150px">
-                <el-form-item label="Select Theme">
-                    <el-select v-model="selectedTheme" placeholder="Choose a theme">
-                        <el-option label="Light Theme" value="light" />
-                        <el-option label="Dark Theme" value="dark" />
-                        <el-option label="Blue Theme" value="blue" />
-                    </el-select>
-                </el-form-item>
-            </el-form>
-
-            <!-- 保存按钮 -->
-            <el-button type="primary" @click="saveSettings" class="save-button">Save Settings</el-button>
-        </el-card>
+  <main class="settings-main">
+    <div class="settings-header">
+      <h1 class="header-title">用户设置</h1>
+      <el-icon class="header-icon"><User /></el-icon>
     </div>
+
+    <div class="settings-content">
+      <!-- 个人信息 -->
+      <section class="settings-section">
+        <h2 class="section-title">个人信息</h2>
+        <el-form label-width="140px" class="form-container">
+          <el-form-item label="头像">
+            <el-upload
+              action="https://jsonplaceholder.typicode.com/posts/"
+              list-type="picture-card"
+              :on-preview="handleAvatarPreview"
+              :on-remove="handleAvatarRemove"
+            >
+              <el-icon><Plus /></el-icon>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="昵称">
+            <el-input v-model="form.nickname" placeholder="请输入昵称" />
+          </el-form-item>
+          <el-form-item label="个人简介">
+            <el-input
+              v-model="form.bio"
+              type="textarea"
+              placeholder="请输入个人简介"
+            />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" size="large" @click="saveProfile"
+              >保存</el-button
+            >
+          </el-form-item>
+        </el-form>
+      </section>
+
+      <!-- 账户安全 -->
+      <section class="settings-section">
+        <h2 class="section-title">账户安全</h2>
+        <el-form label-width="140px" class="form-container">
+          <el-form-item label="修改密码">
+            <el-input
+              v-model="form.password"
+              type="password"
+              placeholder="请输入新密码"
+            />
+          </el-form-item>
+          <el-form-item label="双重验证">
+            <el-switch v-model="form.twoFactorAuth" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" size="large" @click="saveSecurity"
+              >保存</el-button
+            >
+          </el-form-item>
+        </el-form>
+      </section>
+
+      <!-- 通知设置 -->
+      <section class="settings-section">
+        <h2 class="section-title">通知设置</h2>
+        <el-form label-width="140px" class="form-container">
+          <el-form-item label="接收邮件通知">
+            <el-switch v-model="form.emailNotifications" />
+          </el-form-item>
+          <el-form-item label="接收短信通知">
+            <el-switch v-model="form.smsNotifications" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" size="large" @click="saveNotifications"
+              >保存</el-button
+            >
+          </el-form-item>
+        </el-form>
+      </section>
+    </div>
+  </main>
 </template>
 
-<script>
-import { mapState, mapActions } from 'vuex';
+<script setup>
+import { ref } from 'vue';
+import { Plus, User } from '@element-plus/icons-vue';
 
-export default {
-    data() {
-        return {
-            preferences: {
-                notifications: true,
-                darkMode: false
-            }
-        };
-    },
-    computed: {
-        ...mapState(['selectedTheme']),
-        selectedTheme: {
-            get() {
-                return this.$store.state.selectedTheme;
-            },
-            set(value) {
-                this.updateTheme(value);
-            }
-        }
-    },
-    methods: {
-        ...mapActions(['updateTheme']),
-        saveSettings() {
-            // 保存设置到 localStorage
-            localStorage.setItem('userSettings', JSON.stringify({
-                preferences: this.preferences,
-                selectedTheme: this.selectedTheme
-            }));
-            this.$message.success('Settings saved successfully!');
-        }
-    }
+const form = ref({
+  nickname: '',
+  bio: '',
+  password: '',
+  twoFactorAuth: false,
+  emailNotifications: true,
+  smsNotifications: false,
+});
+
+const handleAvatarPreview = (file) => {
+  console.log('预览头像', file);
+};
+
+const handleAvatarRemove = (file) => {
+  console.log('移除头像', file);
+};
+
+const saveProfile = () => {
+  console.log('保存个人信息', form.value);
+};
+
+const saveSecurity = () => {
+  console.log('保存账户安全设置', form.value);
+};
+
+const saveNotifications = () => {
+  console.log('保存通知设置', form.value);
 };
 </script>
 
 <style scoped>
-.settings-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+.settings-main {
+  padding: 40px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  min-height: 100vh;
 }
 
-.settings-card {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+.settings-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
+.header-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #303133;
+  margin-right: 16px;
 }
 
-p {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
+.header-icon {
+  font-size: 36px;
+  color: #409eff;
 }
 
-.save-button {
-    margin-top: 20px;
-    width: 100%;
+.settings-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.settings-section {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #303133;
+  margin-bottom: 24px;
+}
+
+.form-container {
+  padding: 16px;
+}
+
+.el-form-item {
+  margin-bottom: 24px;
+}
+
+.el-input,
+.el-textarea {
+  width: 100%;
+}
+
+.el-button {
+  width: 120px;
 }
 </style>

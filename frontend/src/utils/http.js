@@ -13,10 +13,12 @@ const http = axios.create({
 
 // 请求拦截器：在请求发送之前添加认证信息（如 Token）
 http.interceptors.request.use(config => {
-    const token = localStorage.getItem('Token'); // 假设 token 存储在 localStorage 中
+    const token = localStorage.getItem('token'); // 假设 token 存储在 localStorage 中
+    console.log(token);
     if (token) {
-        config.headers['Authorization'] = `Bearer ${token}`;  // 将 token 添加到请求头
+        config.headers['Token'] = token;  // 将 token 添加到请求头
     }
+    console.log(config);
     return config; // 返回修改后的 config
 }, error => {
     return Promise.reject(error); // 请求失败时处理

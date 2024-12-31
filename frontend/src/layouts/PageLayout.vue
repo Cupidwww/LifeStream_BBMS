@@ -1,32 +1,38 @@
 <template>
-    <el-container class="page-layout">
-        <!-- 导航栏 -->
-        <el-header height="60px" class="navbar">
-            <Navbar />
-        </el-header>
+  <el-container class="page-layout">
+    <!-- 导航栏 -->
+    <el-header height="60px" class="navbar">
+      <Navbar />
+    </el-header>
 
-        <!-- 主体布局 -->
-        <el-container>
-            <!-- 侧边栏 -->
-            <el-aside :width="sidebarWidth" class="sidebar">
-                <Sidebar :is-collapsed="isCollapsed"/>
-            </el-aside>
+    <!-- 主体布局 -->
+    <el-container>
+      <!-- 侧边栏 -->
+      <el-aside :width="sidebarWidth" class="sidebar">
+        <Sidebar :is-collapsed="isCollapsed" />
+      </el-aside>
 
-            <!-- 切换按钮 -->
-            <div class="sidebar-toggle-button">
-            <el-button type="text" @click="toggleSidebar" style="height: 100%;">
-              <el-icon :size="20">
-                <component :is="isCollapsed ? 'Expand' : 'Fold'" />
-              </el-icon>
-            </el-button>
-            </div>
+      <!-- 切换按钮 -->
+      <div
+        class="sidebar-toggle-button"
+        :style="{ left: isCollapsed ? '80px' : '280px' }"
+      >
+        <el-button type="text" @click="toggleSidebar" style="height: 100%">
+          <el-icon :size="20">
+            <component :is="isCollapsed ? 'Expand' : 'Fold'" />
+          </el-icon>
+        </el-button>
+      </div>
 
-            <!-- 内容区域 -->
-            <el-main>
-                <router-view /> <!-- 动态加载路由页面 -->
-            </el-main>
-        </el-container>
+      <!-- 内容区域 -->
+      <el-main
+        class="main-content"
+        :style="{ marginLeft: isCollapsed ? '100px' : '300px', width: isCollapsed ? 'calc(100% - 80px)' : 'calc(100% - 280px)' }"
+      >
+        <router-view /> <!-- 动态加载路由页面 -->
+      </el-main>
     </el-container>
+  </el-container>
 </template>
 
 <script>
@@ -34,46 +40,62 @@ import Navbar from '../components/appNavbar.vue';
 import Sidebar from '../components/appSidebar.vue';
 
 export default {
-    name: 'AuthLayout',
-    components: {
-        Navbar,
-        Sidebar,
+  name: 'AuthLayout',
+  components: {
+    Navbar,
+    Sidebar,
+  },
+  data() {
+    return {
+      isCollapsed: false, // 侧边栏是否收缩
+    };
+  },
+  computed: {
+    sidebarWidth() {
+      return this.isCollapsed ? '80px' : '280px'; // 根据状态动态设置宽度
     },
-    data() {
-        return {
-            isCollapsed: false, // 侧边栏是否收缩
-        };
+  },
+  methods: {
+    toggleSidebar() {
+      this.isCollapsed = !this.isCollapsed; // 切换状态
+      console.log(this.isCollapsed);
     },
-    computed: {
-        sidebarWidth() {
-            return this.isCollapsed ? '80px' : '280px'; // 根据状态动态设置宽度
-        },
-    },
-    methods: {
-        toggleSidebar() {
-            this.isCollapsed = !this.isCollapsed; // 切换状态
-            console.log(this.isCollapsed);
-        },
-    },
+  },
 };
 </script>
 
 <style scoped>
 .page-layout {
-    height: 100vh;
+  height: 100vh;
 }
 
+/* 导航栏 */
 .navbar {
-    background-color: #333;
-    color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #333;
+  color: white;
 }
 
+/* 侧边栏 */
 .sidebar {
-    background-color: #f4f4f4;
-    transition: width 0.3s; /* 添加过渡效果 */
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: calc(100vh - 60px);
+  z-index: 999;
+  background-color: #f4f4f4;
+  transition: width 0.3s; /* 添加过渡效果 */
 }
 
+/* 切换按钮 */
 .sidebar-toggle-button {
+  position: fixed;
+  top: 60px;
+  height: calc(100vh - 60px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,10 +104,20 @@ export default {
   border-left: 1px solid #e6e6e6; /* 左侧分割线 */
   border-right: 1px solid #e6e6e6; /* 右侧分割线 */
   cursor: pointer; /* 鼠标悬停时显示手型 */
-  transition: background-color 0.3s; /* 过渡效果 */
+  transition: background-color 0.3s, left 0.3s; /* 过渡效果 */
 }
 
 .sidebar-toggle-button:hover {
   background-color: #e6e6e6; /* 鼠标悬停时的背景色 */
+}
+
+/* 内容区域 */
+.main-content {
+  margin-top: 60px;
+  margin-left: 100px;
+  padding: 20px;
+  background: #ffffff;
+  min-height: calc(100vh - 60px);
+  transition: margin-left 0.3s, width 0.3s; /* 过渡效果 */
 }
 </style>

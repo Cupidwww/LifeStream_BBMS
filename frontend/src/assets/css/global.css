@@ -1,0 +1,66 @@
+/* 以下皆为全局样式 */
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #409EFF, #67C23A);
+    /* 渐变背景 */
+    border-radius: 8px;
+    /* 圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* 阴影 */
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #409EFF, 0 0 10px #409EFF;
+    }
+
+    to {
+        text-shadow: 0 0 10px #67C23A, 0 0 20px #67C23A;
+    }
+}
+
+.dynamic-table {
+    table-layout: fixed;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.batch-actions {
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+    background: linear-gradient(to right, rgba(245, 245, 245, 0.8), rgba(220, 220, 220, 0.8));
+    /* 浅灰色透明渐变 */
+    padding: 10px;
+    /* 添加内边距 */
+    border-radius: 8px;
+    /* 圆角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* 阴影 */
+}
+
+.dialog-box {
+    width: 800px;
+    height: auto;
+    padding: 10px;
+    /* 添加内边距 */
+    min-height: 400px;
+}
+
+.page-title
+
+.dialog-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #303133;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    line-height: 1.2 !important;/* 控制行距 */
+} 

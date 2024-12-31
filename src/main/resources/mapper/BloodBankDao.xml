@@ -11,7 +11,7 @@
         <result property="bloodVolume" column="bloodVolume"/>
         <result property="transactionDate" column="transactionDate"/>
         <result property="expirationDate" column="expirationDate"/>
-        <result property="bloodSource" column="bloodSource"/>
+        <result property="bloodDonationID" column="bloodDonationID"/>
         <result property="remarks" column="remarks"/>
     </resultMap>
 
