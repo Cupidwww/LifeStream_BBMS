@@ -111,7 +111,7 @@ public class UsersController{
      * 列表
      */
     @RequestMapping("/list")
-    public R list( UsersEntity user){
+    public R list(@RequestBody UsersEntity user){
        	EntityWrapper<UsersEntity> ew = new EntityWrapper<UsersEntity>();
       	ew.allEq(MPUtil.allEQMapPre( user, "user")); 
         return R.ok().put("data", userService.selectListView(ew));

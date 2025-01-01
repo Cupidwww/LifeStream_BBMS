@@ -32,8 +32,8 @@ const userApi = {
   },
 
   // 获取用户列表（前端）
-  getUserList(params, user) {
-    return http.get('/user/list', user, { params }); // 使用GET请求并传递查询参数
+  getUserList(user) {
+    return http.post('/user/list', user); // 之前使用GET请求并传递查询参数，现在用post
   },
 
   // 获取用户详情

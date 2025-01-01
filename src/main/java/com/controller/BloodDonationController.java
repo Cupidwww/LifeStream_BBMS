@@ -72,7 +72,7 @@ public class BloodDonationController {
      */
     @IgnoreAuth
     @RequestMapping("/lists")
-    public R list(BloodDonationEntity bloodDonation){
+    public R list(@RequestBody BloodDonationEntity bloodDonation){
         EntityWrapper<BloodDonationEntity> ew = new EntityWrapper<BloodDonationEntity>();
         ew.allEq(MPUtil.allEQMapPre( bloodDonation, "blood_donation"));
         return R.ok().put("data", bloodDonationService.selectListView(ew));

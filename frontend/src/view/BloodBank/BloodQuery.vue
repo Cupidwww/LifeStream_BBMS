@@ -5,7 +5,7 @@
         <!-- 查询工具栏 -->
         <div v-if="isTableReady" class="search-bar">
                     <!-- 查询表单 -->
-            <el-form :model="searchQuery" label-width="120px" class="search-form">
+            <el-form :model="searchQuery" label-width="auto" class="search-form">
                 <!-- id -->
                 <el-form-item label="ID">
                     <el-input v-model="searchQuery.id" placeholder="Enter ID" />
