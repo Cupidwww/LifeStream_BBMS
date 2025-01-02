@@ -178,6 +178,8 @@ export default {
 
                 // 登录成功后存储token
                 localStorage.setItem('token', response.data.token);
+                // 存储用户角色
+                localStorage.setItem('role', loginData.roleType);
 
                 console.log(response.data.token);
 

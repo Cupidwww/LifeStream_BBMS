@@ -43,7 +43,7 @@ export default {
 
         const handleCommand = async (command) => {
             if (command === 'profile') {
-                console.log('跳转到用户详情页面');
+                router.push('/settings'); // 跳转到个人资料页面
             } else if (command === 'logout') {
                 try {
                     const response = await userApi.logoutUser(); // 调用 API 登出

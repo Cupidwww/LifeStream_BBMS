@@ -1,16 +1,16 @@
 <template>
   <main class="settings-main">
     <div class="settings-header">
-      <h1 class="header-title">用户设置</h1>
+      <h1 class="header-title">User Settings</h1>
       <el-icon class="header-icon"><User /></el-icon>
     </div>
 
     <div class="settings-content">
       <!-- 个人信息 -->
       <section class="settings-section">
-        <h2 class="section-title">个人信息</h2>
+        <h2 class="section-title">Personal Information</h2>
         <el-form label-width="140px" class="form-container">
-          <el-form-item label="头像">
+          <el-form-item label="avatar">
             <el-upload
               action="https://jsonplaceholder.typicode.com/posts/"
               list-type="picture-card"
@@ -20,19 +20,19 @@
               <el-icon><Plus /></el-icon>
             </el-upload>
           </el-form-item>
-          <el-form-item label="昵称">
-            <el-input v-model="form.nickname" placeholder="请输入昵称" />
+          <el-form-item label="username">
+            <el-input v-model="form.nickname" placeholder="please enter your username" />
           </el-form-item>
-          <el-form-item label="个人简介">
+          <el-form-item label="biography">
             <el-input
               v-model="form.bio"
               type="textarea"
-              placeholder="请输入个人简介"
+              placeholder="please enter your biography"
             />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" size="large" @click="saveProfile"
-              >保存</el-button
+              >save</el-button
             >
           </el-form-item>
         </el-form>
@@ -40,21 +40,21 @@
 
       <!-- 账户安全 -->
       <section class="settings-section">
-        <h2 class="section-title">账户安全</h2>
+        <h2 class="section-title">Account Security</h2>
         <el-form label-width="140px" class="form-container">
-          <el-form-item label="修改密码">
+          <el-form-item label="Modify Password">
             <el-input
               v-model="form.password"
               type="password"
-              placeholder="请输入新密码"
+              placeholder="please enter your new password"
             />
           </el-form-item>
-          <el-form-item label="双重验证">
+          <el-form-item label="Two-factor authentication">
             <el-switch v-model="form.twoFactorAuth" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" size="large" @click="saveSecurity"
-              >保存</el-button
+              >save</el-button
             >
           </el-form-item>
         </el-form>
@@ -62,17 +62,17 @@
 
       <!-- 通知设置 -->
       <section class="settings-section">
-        <h2 class="section-title">通知设置</h2>
+        <h2 class="section-title">Notification Settings</h2>
         <el-form label-width="140px" class="form-container">
-          <el-form-item label="接收邮件通知">
+          <el-form-item label="accept email notifications">
             <el-switch v-model="form.emailNotifications" />
           </el-form-item>
-          <el-form-item label="接收短信通知">
+          <el-form-item label="accept SMS notifications">
             <el-switch v-model="form.smsNotifications" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" size="large" @click="saveNotifications"
-              >保存</el-button
+              >save</el-button
             >
           </el-form-item>
         </el-form>
@@ -83,7 +83,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import { Plus, User } from '@element-plus/icons-vue';
+// import { Plus, User } from '@element-plus/icons-vue';
+
 
 const form = ref({
   nickname: '',

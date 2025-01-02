@@ -152,19 +152,19 @@ public class UserController {
     @IgnoreAuth
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,UserEntity user, HttpServletRequest request){
-        String role = (String)request.getSession().getAttribute("role");
-        System.out.println("role: " + role);
-        if("ADMIN".equals(role)) {
+        // String role = (String)params.get("role");
+        // System.out.println("role: " + role);
+        // if("ADMIN".equals(role)) {
             EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
             PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, user), params), params));
             return R.ok().put("data", page);
-        } else {
-            user.setUsername((String)request.getSession().getAttribute("username"));
-            EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
-            ew.eq("username", user.getUsername());
-            PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, user), params), params));
-            return R.ok().put("data", page);
-        }
+        // } else {
+        //     user.setUsername((String)request.getSession().getAttribute("username"));
+        //     EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
+        //     ew.eq("username", user.getUsername());
+        //     PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, user), params), params));
+        //     return R.ok().put("data", page);
+        // }
     }
     
     /**
@@ -187,9 +187,10 @@ public class UserController {
      * @param user 用户实体
      * @return R 响应对象,包含用户列表
      */
+    // 不支持分页
     @IgnoreAuth
     @RequestMapping("/lists")
-    public R list( UserEntity user){
+    public R list(@RequestBody UserEntity user){
         EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
         ew.allEq(MPUtil.allEQMapPre( user, "user")); 
         return R.ok().put("data", userService.selectListView(ew));

@@ -54,11 +54,6 @@
                     <el-input v-model="searchQuery.bloodVolume" type="number" placeholder="Enter volume (in increments of 50)" />
                 </el-form-item>
 
-                <!-- 登记日期 -->
-                <el-form-item label="Registration Date">
-                    <el-date-picker v-model="searchQuery.registrationDate" type="date" placeholder="Choose Date" />
-                </el-form-item>
-
                 <!-- 献血者ID -->
                 <el-form-item label="Donor ID">
                     <el-input v-model="searchQuery.donorID" placeholder="Enter Donor ID" />
@@ -262,7 +257,6 @@
                 </div>
             </template>
         </el-dialog>
-
 
         <!-- 插入数据按钮 -->
         <el-button type="primary" @click="showAddDialog = true">Add New Donation Record</el-button>
@@ -473,17 +467,7 @@ export default {
 </script>
 
 <style scoped>
-/* 样式 */
-.dynamic-table {
-    width: 100%;
-}
 
-.batch-actions {
-    margin-bottom: 20px;
-}
-
-.dialog-footer {
-    text-align: right;
-}</style>
+</style>
 
 

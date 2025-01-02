@@ -27,13 +27,13 @@ const userApi = {
   },
 
   // 获取用户列表（后端）
-  getPage(params, user) {
-    return http.get('/user/page', user, { params }); // 使用完整的路径
+  getPage(params) {
+    return http.get('/user/page',{ params }); // 使用完整的路径
   },
 
   // 获取用户列表（前端）
   getUserList(user) {
-    return http.post('/user/list', user); // 之前使用GET请求并传递查询参数，现在用post
+    return http.post('/user/lists', user); // 之前使用GET请求并传递查询参数，现在用post
   },
 
   // 获取用户详情
@@ -44,6 +44,11 @@ const userApi = {
   // 更新用户信息接口
   updateUser(userData) {
     return http.post('/user/update', userData); // 使用POST请求更新用户信息
+  },
+
+  // 新增用户接口
+  addUser(userData) {
+    return http.post('/user/add', userData); // 使用POST请求新增用户
   },
 
   // 删除用户接口

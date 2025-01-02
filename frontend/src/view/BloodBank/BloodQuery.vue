@@ -4,7 +4,7 @@
 
         <!-- 查询工具栏 -->
         <div v-if="isTableReady" class="search-bar">
-                    <!-- 查询表单 -->
+            <!-- 查询表单 -->
             <el-form :model="searchQuery" label-width="auto" class="search-form">
                 <!-- id -->
                 <el-form-item label="ID">
@@ -57,7 +57,8 @@
                 </el-form-item>
 
                 <!-- 查询按钮 -->
-                <el-form-item>
+                <el-form-item class="search-buttons"> 
+                    <!-- 想让这两个按钮居中，无果 -->
                     <el-button type="primary" @click="handleSearch">Search</el-button>
                     <el-button @click="resetSearchForm">Reset</el-button>
                 </el-form-item>
@@ -366,7 +367,7 @@ export default {
                 if (this.searchQuery.transactionDate) {
                     this.searchQuery.transactionDate = this.formatDate(this.searchQuery.transactionDate);
                 }
-                const response = await bloodBankApi.getFullList(this.searchQuery);
+                const response = await bloodBankApi.getUserList(this.searchQuery);
                 console.log('查询结果:', response.data.data);
                 this.tableData = response.data.data;
                 // this.pagination.total = response.data;
@@ -393,7 +394,7 @@ export default {
             this.loadings = true;
             try {
                 this.loadData();
-                this.$message.success('查询条件已重置');
+                this.$message.success('reset search form success');
             } catch (error) {
                 console.error('重置查询条件失败', error);
             } finally {

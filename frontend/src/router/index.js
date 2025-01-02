@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import PageLayout from '@/layouts/PageLayout.vue';
 
+// 取消了所有子标题，但是侧边栏分级的功能依然保留，如果有子标题可以自动完成下滑显示
 const routes = [
     {
         path: '/',
@@ -36,27 +37,28 @@ const routes = [
     {
         path: '/user-management',
         name: 'UserManagement',
+        component: () => import('@/view/UserManagement/UserManagement.vue'),
         meta: { title: 'User management', icon: Avatar, layout: PageLayout },
-        children: [
-            {
-                path: 'user',
-                name: 'User',
-                component: () => import('@/view/UserManagement/UserManagement.vue'),
-                meta: { title: 'User', layout: PageLayout },
-            },
-            {
-                path: 'donor',
-                name: 'Donor',
-                component: () => import('@/view/UserManagement/DonorManagement.vue'),
-                meta: { title: 'Donor', layout: PageLayout },
-            },
-            {
-                path: 'staff',
-                name: 'Staff',
-                component: () => import('@/view/UserManagement/StaffManagement.vue'),
-                meta: { title: 'Staff', layout: PageLayout },
-            },
-        ],
+        // children: [
+        //     {
+        //         path: 'user',
+        //         name: 'User',
+        //         component: () => import('@/view/UserManagement/UserManagement.vue'),
+        //         meta: { title: 'User', layout: PageLayout },
+        //     },
+        //     {
+        //         path: 'donor',
+        //         name: 'Donor',
+        //         component: () => import('@/view/UserManagement/DonorManagement.vue'),
+        //         meta: { title: 'Donor', layout: PageLayout },
+        //     },
+        //     {
+        //         path: 'staff',
+        //         name: 'Staff',
+        //         component: () => import('@/view/UserManagement/StaffManagement.vue'),
+        //         meta: { title: 'Staff', layout: PageLayout },
+        //     },
+        // ],
     },
     {
         path: '/blood-bank',
@@ -96,18 +98,18 @@ const routes = [
         component: () => import('@/view/Appcation_settings.vue'),
         meta: { title: 'Setting', icon: Tools, layout: PageLayout },
     },
-    {
-        path: '/login',
-        name: 'Login',
-        component: () => import('@/view/UserLogin.vue'),
-        meta: { layout: AuthLayout },
-    },
-    {
-        path: '/register',
-        name: 'Register',
-        component: () => import('@/view/UserRegister.vue'),
-        meta: { layout: AuthLayout },
-    },
+    // {
+    //     path: '/login',
+    //     name: 'Login',
+    //     component: () => import('@/view/UserLogin.vue'),
+    //     meta: { layout: AuthLayout },
+    // },
+    // {
+    //     path: '/register',
+    //     name: 'Register',
+    //     component: () => import('@/view/UserRegister.vue'),
+    //     meta: { layout: AuthLayout },
+    // },
     {
         path: '/index',
         name: 'index',
